@@ -186,12 +186,9 @@ particles acc cavernWalls =
    then Just updatedParticle
    else Nothing
   updateParticles particle (updatedParticles,particleCreated) = 
-   let updatedParticleM = updateParticle particle in
-   if updatedParticleM == Nothing
-   then {xp=30,yp=30,letter="destroyed"} -- (if particleCreated then updatedParticles else (if inCavern {x=newParticle.xp,y=newParticle.yp} then newParticle :: updatedParticles else updatedParticles), True)
-   else
-    case updatedParticleM of
-     Just particle' -> ([particle'],True) -- (particle'::updatedParticles,particleCreated)
+   case updateParticle particle of
+    Just particle' -> ([particle'],True) -- (particle'::updatedParticles,particleCreated)
+    Nothing -> {xp=30,yp=30,letter="destroyed"} -- (if particleCreated then updatedParticles else (if inCavern {x=newParticle.xp,y=newParticle.yp} then newParticle :: updatedParticles else updatedParticles), True)
  in
  case acc of
   []   -> [newParticle]
