@@ -12,6 +12,20 @@ GPL 3.0 - Timothy Hobbs <timothyhobbs@seznam.cz>
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+Notes about Veek!
+
+Veek! started out as a project to help me study(distract me from studying) for my comprehensive university exams.  It should, however, demonstrate Elm as a capable programming language and also demonstrate two design choices:
+
+Infinite worlds:
+inCavern :: {x::Float,y::Float} -> Bool
+defines our infinite world.  Veek!'s game engine can be seen as a simple raytracing graphing calculator.  In fact, you can use it as such.  For example, just set inCavern = point.y > cos x and defaultPos = {x=0,y=(cos 0)+15} to explore the cosine curve from above.  In order for the game to work, caverns must have a top and a bottom, and Veek! is rather larger than 2pi, so if you would like to create a cosine shaped level of Veek! you would need something like inCavern = point.y > 30*cos (x/50) && point.y < 30*cos (x/50) + 100
+
+No random:
+Particles are created parametrically, based on the location of the walls.  Variation is created by examination of past particles.  There is no random used to generate new particles.
+
+Currently unsolved bugs:
+particle stamping, the particles sometimes get stamped onto the screen and move along with Veek!
+
 Notes about elm:
 
 I wrote this program using the elm-0.8 compiler.
@@ -38,7 +52,11 @@ speed = 7
 
 numRays = 30
 
-alphabet = "abcd"
+maxParticles = 5
+
+attemptsPerQuestion = 5
+
+alphabet = ["a","b","c","d"]
 
 -- hop is the coefficient used to determin the length of each hop while tracing a ray outwards.
 hop=2
@@ -95,13 +113,13 @@ traceRay center collisionTest lineOfSightTest ray =
  if lineOfSightTest nextPoint
  then Nothing
  else (if collisionTest nextPoint
-        then Just (nextPoint.x-center.x,0-(nextPoint.y-center.y))
+        then Just (nextPoint.x,nextPoint.y)
         else traceRay center collisionTest lineOfSightTest nextPoint )
 
 cavernWalls veekV lineOfSight = traceRaysFrom {x=veekV.xp,y=veekV.yp} (not . inCavern) lineOfSight
 
 
-drawCavernWalls cavernWallsV = map (\points-> traced (solid black) $ path points) cavernWallsV 
+drawCavernWalls cavernWallsV veekV = map (\points-> traced (solid black) $ path $ map (\(x,y)->(x-veekV.xp,0-(y-veekV.yp))) points) cavernWallsV 
 
 -- Helper to come up with a vector of length one describing the direction which veek should move. Not to be confused with veekDirection(the way veek is facing.
 getDirection arrs =
@@ -172,60 +190,134 @@ background w h = filled black $ rect w h
 view lineOfSight =
  filled white $ circle lineOfSight
 
-particles acc cavernWalls =
+l !! i = head <| drop i l
+
+data ParticleUpdate particle =
+   Updated particle
+ | Eaten particle
+ | Destroyed
+
+particlesWithChanges (cavernWalls,veekV) pwc =
  let
-  newParticle =
-   case cavernWalls of
-    (((x,y)::_)::_) -> {xp=x,yp=y-10,letter="ce"}
-    _ ->  {xp=30,yp=30,letter="a"} -- TODO
-  updateParticle particle =
+  accParticles = pwc.particles
+  numParticles = length accParticles
+  newParticlesFromWall (x,y) =
+   if inCavern {x=x,y=y-1}
+    then Just {xp=x,yp=y-1,letter= alphabet !! ((round x) `mod` (length alphabet))}
+    else Nothing
+  newParticle pointsToAvoid = -- {xp=0,yp=0,letter="a"}
+    let
+     tryParticle particle acc prevDist =
+      let
+       dist = minimum $ map (distance {x=particle.xp,y=particle.yp}) $ {x=veekV.xp,y=veekV.yp} ::pointsToAvoid
+      in
+      if dist > prevDist
+       then ([particle],dist)
+       else (acc,prevDist)
+    in
+    fst $ foldr (\p (acc,prevDist)-> 
+            case p of
+              Just particle -> tryParticle particle acc prevDist
+              Nothing -> (acc,prevDist))
+     ([],0)
+     $ map newParticlesFromWall $ concat $ cavernWalls
+
+  updateParticle particle = 
    let
     updatedParticle = {particle|yp<-particle.yp-2}
+    updatedPoint = {x=updatedParticle.xp,y=updatedParticle.yp}
    in
-   if inCavern {x=updatedParticle.xp,y=updatedParticle.yp}
-   then Just updatedParticle
-   else Nothing
-  updateParticles particle (updatedParticles,particleCreated) = 
-   case updateParticle particle of
-    Just particle' -> ([particle'],True) -- (particle'::updatedParticles,particleCreated)
-    Nothing -> {xp=30,yp=30,letter="destroyed"} -- (if particleCreated then updatedParticles else (if inCavern {x=newParticle.xp,y=newParticle.yp} then newParticle :: updatedParticles else updatedParticles), True)
- in
- case acc of
-  []   -> [newParticle]
-  _    -> fst $ foldl updateParticles ([],False) acc
- -- [{xp=30,yp=30,letter="a"}]
+   if | distance updatedPoint {x=veekV.xp,y=veekV.yp} < 20 -> Eaten particle
+      | inCavern updatedPoint -> Updated updatedParticle
+      | otherwise -> Destroyed
+  updateParticles particle (updatedParticles,particleCreated,particlesEaten) = 
+   let
+    withNewParticles eaten =
+     let
+      particleToPoint particle = {x=particle.xp,y=particle.yp}
+      newParticleA = newParticle $ map particleToPoint accParticles
+      newParticleB = newParticle ((map particleToPoint newParticleA) ++ (map particleToPoint accParticles))
+      particleListInCavern pl  = any (\p -> inCavern $ particleToPoint p) pl
+     in
+     (if particleCreated
+      then updatedParticles
+      else
+       (if particleListInCavern newParticleA
+        then
+         (if numParticles < maxParticles && particleListInCavern newParticleB
+          then (\pl -> newParticleB ++ pl)
+          else (\pl -> pl)) (newParticleA ++ updatedParticles)
+        else updatedParticles), True, eaten)
 
-drawParticle veekV particle = move (particle.xp-veekV.xp,particle.yp-veekV.yp) $ toForm $ plainText (particle.letter++ show veekV.xp) --veekV.xp should change when veek moves.
+   in
+   case updateParticle particle of
+    Updated particle' -> (particle'::updatedParticles,particleCreated,particlesEaten)
+    Eaten etParticle -> withNewParticles $ etParticle :: particlesEaten
+    Destroyed -> withNewParticles particlesEaten
+  (particles,_,eaten) = foldl updateParticles ([],False,[]) accParticles
+ in
+ case accParticles of
+  []   -> {particles=newParticle [],eaten=[]}
+  _    -> {particles=particles,eaten=eaten}
+
+drawParticle veekV particle = move (particle.xp-veekV.xp,particle.yp-veekV.yp) $ toForm $ plainText particle.letter
 
 drawParticles veekV particlesV =
  case particlesV of
   [] ->  [drawParticle veekV {xp=30,yp=30,letter="No particles"}]
-  _ -> map (drawParticle veekV)  particlesV
+  _ -> (map (drawParticle veekV)  particlesV) -- ++ [toForm $ asText particlesV]
 
-drawGameView (w,h) veekV lineOfSight cavernWallsV particlesV = collage (w-1) (h-1) $ [background w h,view lineOfSight]++drawCavernWalls cavernWallsV++[veekForm veekV] ++ drawParticles veekV particlesV
+drawGameView (w,h) veekV lineOfSight cavernWallsV particlesV = collage (w-1) (h-1) $ [background w h,view lineOfSight]++drawCavernWalls cavernWallsV veekV++[veekForm veekV] ++ drawParticles veekV particlesV
 
-drawInfoView veekV =  
-  --let
-  -- makeElems items = map asText items
-  -- addSep elementList = plainText "------" :: elementList
-  --in
+drawInfoView veekV eatenParticles task attempts lives =  
   flow right $
    [plainText "Veek!"
    ,plainText "("
    ,asText veekV.xp
    ,plainText ","
    ,asText veekV.yp
-   ,plainText ")"] -- ++ (concat $ map addSep $ map makeElems $ cavernWalls veekV 400)
+   ,plainText ")  "
+   ,plainText "Attempts: "
+   ,asText attempts
+   ,plainText " Lives: "
+   ,asText lives
+   ,plainText " "
+   ,plainText task.q
+   ,plainText " "]
+  ++ map (\la->if any (\le->le == la) eatenParticles then plainText la else plainText "_ ") task.a
+   -- ++ (concat $ map addSep $ map makeElems $ cavernWalls veekV 400)
 
-infoView = drawInfoView <~ veek
 
-gameViewSize = (\(w,h) ive->(w,h-heightOf ive)) <~ Window.dimensions ~ infoView
+gameViewSize = (\(w,h)->(w,h-{-heightOf infoView-} 50)) <~ Window.dimensions -- I'd like to rely on the hight of info view, but cannot figure out how to do so without creating cyclicity in the graph.
 
 lineOfSightS = (\(w,h)->(min w h) `div` 2) <~ gameViewSize
 
 cavernWallsS = cavernWalls <~ veek ~ lineOfSightS
 
-particlesS = foldp particles [] cavernWallsS
+cavernWallsAndVeekS = (\cavernWalls veekV->(cavernWalls,veekV)) <~ cavernWallsS ~ veek
+
+particlesWithChangesS = foldp particlesWithChanges {particles=[]} cavernWallsAndVeekS
+
+particlesS = (\pwc->pwc.particles) <~ particlesWithChangesS
+
+eatenParticlesS = foldp (\newlyEaten acc->acc++(map (\e->e.letter) newlyEaten.eaten)) [] particlesWithChangesS
+
+taskS = constant {q="What are the first three letters of the alphabet?",a=["a","b","c"]}
+
+countAttempts eaten task =
+  let
+   difference et acc = acc -
+           (if any (\la->la==et) task.a
+             then 0
+             else 1)  -- I hereby declare a new word "parethesary" which means "these parentheses are needed!"
+  in
+  foldr difference attemptsPerQuestion eaten
+
+attemptsS = countAttempts <~ eatenParticlesS ~ taskS
+
+livesS = constant 3
+
+infoView = drawInfoView <~ veek ~ eatenParticlesS ~ taskS ~ attemptsS ~ livesS
 
 gameView = drawGameView <~ gameViewSize ~ veek ~ lineOfSightS ~ cavernWallsS ~ particlesS
 
