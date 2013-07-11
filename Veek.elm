@@ -42,6 +42,8 @@ All nodes are kept in memory at all times, waiting to hear a message, and they a
 
 The seccond problem, is noted in Evan's thesis, and we have to accept this as a choice.  There are no first class signals, nor is there a way to create a "duplicatable subnetwork".  In our particles signal, we would really like to make this Signal a list of Signals.  This is implicitly impossible.
 
+The third problem is the law of mutual dependency, which states that any time two signals rely mutually on eachothers values, they must be combined into one.  This is seen in the cases of cavernWallsAndVeekS, eatenParticlesAttemptsLivesAndTaskS, and particlesWithChangesS.  This is an unavoidable code ick with FRP and seems to get worse with the complexity of an application.
+
 -}
 import Window
 import Keyboard
@@ -56,22 +58,18 @@ maxParticles = 5
 
 attemptsPerQuestion = 5
 
+startingLives = 3
+
 alphabet = ["a","b","c","d"]
+
+tasks = [{q="What are the first three letters of the alphabet?",a=["a","b","c"]}
+ ,{q="What is the male parent?",a=["d","a","d"]}]
 
 -- hop is the coefficient used to determin the length of each hop while tracing a ray outwards.
 hop=2
 
 -- returns True if the point is inside the cavern
-inCavern point =
- let
-  near (cy,clearance) = point.y > cy-clearance && point.y < cy+ clearance
-  addClearance cy = (cy,abs $ (50*(tan (point.x / 200)))+20)
-  curvesY =
-   [4*cos (point.x / 50)-5*cos (point.x/30.7)
-   ,0
-   ,point.x^2- 302*(tan (point.x / 100))] 
- in
- any near $ map addClearance $ curvesY
+inCavern point = ((((round point.y) `div` 100) `rem` 2)==0)&&(cos ((distance {x=0,y=0} point)/110) > 0) || (((((round point.y) `div` 100) `rem` 2)==1)&&(cos ((distance {x=0,y=0} point)/110) < 0.5))
 
 -- list of angles at which rays are tested.
 slices =
@@ -300,10 +298,6 @@ particlesWithChangesS = foldp particlesWithChanges {particles=[]} cavernWallsAnd
 
 particlesS = (\pwc->pwc.particles) <~ particlesWithChangesS
 
-eatenParticlesS = foldp (\newlyEaten acc->acc++(map (\e->e.letter) newlyEaten.eaten)) [] particlesWithChangesS
-
-taskS = constant {q="What are the first three letters of the alphabet?",a=["a","b","c"]}
-
 countAttempts eaten task =
   let
    difference et acc = acc -
@@ -313,9 +307,25 @@ countAttempts eaten task =
   in
   foldr difference attemptsPerQuestion eaten
 
-attemptsS = countAttempts <~ eatenParticlesS ~ taskS
+compileEaten newlyEaten eat =
+ let
+  task = tasks !! eat.taskId
+  eaten = eat.eaten++(map (\e->e.letter) newlyEaten.eaten)
+  attempts = countAttempts eat.eaten task
+ in
+ if | all (\l->any (\e->e==l) eaten) task.a -> {eaten=[],taskId=eat.taskId+1,attempts=attemptsPerQuestion,lives=eat.lives}
+    | attempts == 0 -> {eaten=[],taskId=eat.taskId+1,attempts=attemptsPerQuestion,lives=eat.lives-1}
+    | otherwise -> {eaten=eaten,taskId=eat.taskId,attempts=attempts,lives=eat.lives}
 
-livesS = constant 3
+eatenParticlesAttemptsLivesAndTaskS = foldp compileEaten {eaten=[],taskId=0,attempts=attemptsPerQuestion,lives=startingLives} particlesWithChangesS
+
+taskS = (\{taskId}->tasks !! taskId) <~ eatenParticlesAttemptsLivesAndTaskS
+
+eatenParticlesS = .eaten <~ eatenParticlesAttemptsLivesAndTaskS
+
+attemptsS = .attempts <~ eatenParticlesAttemptsLivesAndTaskS
+
+livesS = .lives <~ eatenParticlesAttemptsLivesAndTaskS
 
 infoView = drawInfoView <~ veek ~ eatenParticlesS ~ taskS ~ attemptsS ~ livesS
 
