@@ -78,7 +78,9 @@ veekGame {alphabet, tasks, nextLevel, home} =
 
   numRays = 30
 
-  maxParticles = 5
+  maxParticles = 10
+
+  particleSpeed = 3
 
   attemptsPerQuestion = 5
 
@@ -239,7 +241,7 @@ veekGame {alphabet, tasks, nextLevel, home} =
 
     updateParticle particle = 
      let
-      updatedParticle = {particle|yp<-particle.yp-2}
+      updatedParticle = {particle|yp<-particle.yp-particleSpeed}
       updatedPoint = {x=updatedParticle.xp,y=updatedParticle.yp}
      in
      if | distance updatedPoint {x=veekV.xp,y=veekV.yp} < 20 -> Eaten particle
@@ -284,7 +286,7 @@ veekGame {alphabet, tasks, nextLevel, home} =
 
   drawGameView (w,h) veekV lineOfSight cavernWallsV particlesV = collage (w-1) (h-1) $ [background w h,view lineOfSight]++drawCavernWalls cavernWallsV veekV++[veekForm veekV] ++ drawParticles veekV particlesV
 
-  drawInfoView veekV eatenParticles task attempts lives =  
+  drawInfoView veekV eatenParticles task taskId attempts lives =
     flow right $
      [plainText "Veek!"
      ,plainText "("
@@ -297,11 +299,15 @@ veekGame {alphabet, tasks, nextLevel, home} =
      ,plainText " Lives: "
      ,asText lives
      ,plainText " "
+     ,flow down <|
+       (if | taskId > 0 -> (\c->
+                         [flow right <| [plainText "Previous question: ",plainText (tasks !! (taskId - 1)).q,plainText " "] ++ (map plainText (tasks !! (taskId - 1)).a)] ++ c )
+           | otherwise -> id)
+     [flow right <| [
+      plainText "Current question: "
      ,plainText task.q
      ,plainText " "]
-    ++ map (\la->if any (\le->le == la) eatenParticles then plainText la else plainText "_ ") task.a
-     -- ++ (concat $ map addSep $ map makeElems $ cavernWalls veekV 400)
-
+    ++ map (\la->if any (\le->le == la) eatenParticles then plainText la else plainText "_ ") task.a ]]
 
   gameViewSize = (\(w,h)->(w,h-{-heightOf infoView-} 50)) <~ Window.dimensions -- I'd like to rely on the hight of info view, but cannot figure out how to do so without creating cyclicity in the graph.
 
@@ -346,7 +352,7 @@ veekGame {alphabet, tasks, nextLevel, home} =
 
   livesS = .lives <~ eatenParticlesAttemptsLivesAndTaskS
 
-  infoView = drawInfoView <~ veek ~ eatenParticlesS ~ taskS ~ attemptsS ~ livesS
+  infoView = drawInfoView <~ veek ~ eatenParticlesS ~ taskS ~ taskIdS ~ attemptsS ~ livesS
 
   gameView = drawGameView <~ gameViewSize ~ veek ~ lineOfSightS ~ cavernWallsS ~ particlesS
 
