@@ -1,5 +1,22 @@
-module VowelChart where
+{-
+GPL 3.0 - Timothy Hobbs <timothyhobbs@seznam.cz>
 
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, version 3 of the License.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-}
+module Phonetics.VowelChart where
+
+import Vectors
+
+vowelChart : Float -> {h : Int, frontClose : (Float,Float) , centralClose : (Float, Float), backClose : (Float,Float),frontHalfClose : (Float,Float),centralHalfClose : (Float,Float),backHalfClose : (Float,Float),frontHalfOpen : (Float,Float),centralHalfOpen : (Float,Float),backHalfOpen : (Float,Float),frontOpen : (Float,Float),centralOpen : (Float,Float),backOpen : (Float,Float),forms : [Form]}
 vowelChart w =
  let
   closeLabel = plainText "Close"
@@ -66,6 +83,29 @@ vowelChart w =
    ,tcg <| segment (fy vc.centralClose) (fy vc.centralOpen)
    ,tcg <| segment (fy vc.backClose) (fy vc.backOpen)]}
 
+vc : {h : Int, frontClose : (Float,Float) , centralClose : (Float, Float), backClose : (Float,Float),frontHalfClose : (Float,Float),centralHalfClose : (Float,Float),backHalfClose : (Float,Float),frontHalfOpen : (Float,Float),centralHalfOpen : (Float,Float),backHalfOpen : (Float,Float),frontOpen : (Float,Float),centralOpen : (Float,Float),backOpen : (Float,Float),forms : [Form]}
+vc = vowelChart 400
+
+vowel : (Float,Float) -> String -> Element
+vowel p v = vowels [{point=p,label=v}]
+
+vowels : [{point:(Float,Float),label:String}] -> Element
+vowels vs =
+ collage
+  400
+  vc.h
+  <| vc.forms
+  ++ map (\{point,label}-> move point <| toForm <| plainText label) vs
+
+diphthong : {start:(Float,Float),end:(Float,Float),symbol:String} -> Element
+diphthong d =
+ let
+  (sx,sy) = d.start
+  (ex,ey) = d.end
+ in
+ collage 400 vc.h <| vc.forms ++ [move d.start <| toForm <| plainText d.symbol, Vectors.shortArrow (sx,sy+20) (ex,ey)] -- TODO fix this, don't use shortArrow!
+
+main : Element
 main =
  let
   vc = vowelChart 400

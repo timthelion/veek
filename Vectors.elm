@@ -1,5 +1,13 @@
 module Vectors where
 
+-- Get the average of two vectors
+average : (Float,Float) -> (Float,Float) -> (Float,Float)
+average (x1,y1) (x2,y2) = (x1+(x2-x1)/2,y1+(y2-y1)/2)
+
+-- Add two vectors
+add : (number,number)->(number,number)->(number,number)
+add (x1,y1) (x2,y2) = (x1+x2,y1+y2)
+
 -- Get the normal vector for a given vector
 normal (x,y) =
  let
@@ -8,6 +16,7 @@ normal (x,y) =
   (x/len,y/len)
 
 -- Shorten vector by distance
+shortenBy : (number,number) -> number -> (number,number)
 shortenBy (x,y) dist =
  let
   (normalX,normalY) = normal (x,y)

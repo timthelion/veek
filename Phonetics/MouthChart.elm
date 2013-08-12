@@ -13,26 +13,25 @@ GPL 3.0 - Timothy Hobbs <timothyhobbs@seznam.cz>
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module MouthChart where
+module Phonetics.MouthChart where
 
-placesOfArticulation =
- let
-  w=640
-  h=400
-  ptc (x,y) = (x-(w/2),(h/2)-y) -- Pixel location to cartesian.
- in
- {upperLip = ptc (134,155)
- ,lowerLip = ptc (134,204)
- ,tongTip = ptc (209,227)
- ,toungBlade = ptc (238,190)
- ,toungBack = ptc (336,219)
- ,toungBase = ptc (390,296)
- ,upperTooth = ptc (197,169)
- ,alveolarRidge = ptc (211,135)
- ,palat = ptc (351,111)
- ,palatoAlveolar = ptc (255,101)
- ,velar = ptc (249,185)
- ,glotus = ptc (456,294)}
+import Vectors
+
+w=640
+h=400
+ptc (x,y) = (x-(w/2),(h/2)-y) -- Pixel location to cartesian.
+upperLip = ptc (134,155)
+lowerLip = ptc (134,204)
+toungTip = ptc (209,227)
+toungBlade = ptc (238,190)
+toungBack = ptc (336,219)
+toungBase = ptc (390,296)
+upperTooth = ptc (197,169)
+alveolarRidge = ptc (211,135)
+palat = ptc (351,111)
+palatoAlveolar = ptc (255,101)
+velar = ptc (249,185)
+glotus = ptc (456,294)
 
 -- Get the normal vector for a given vector
 normal (x,y) =
@@ -75,13 +74,17 @@ shortArrow (x1,y1) (x2,y2) =
   [traced (solid black) <| segment (fy start) (fy end)
   ,traced (solid black) <| path [(fy side1p),(fy end),(fy side2p)]]
 
+articulation : {place : (Float, Float), organ : (Float,Float), result :String} -> Element
+articulation sound =
+ mouth
+   [move sound.place <| toForm <| plainText sound.result
+   ,Vectors.shortArrow sound.organ sound.place]
 
+mouth : [Form] -> Element
 mouth forms =
  let
   w=640
   h=400
  in
- layers [image w h "mouth.png",collage w h forms]
+ layers [image w h "images/mouth.png",collage w h forms]
 
-{-main = mouth
-        [move placesOfArticulation.upperLip <| toForm <| plainText "b"]-}

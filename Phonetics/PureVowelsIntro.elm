@@ -25,6 +25,8 @@ main = flow down [Nav.nav,[markdown|
 
 ## The pure vowels
 
+[Kevin Russel´s page on vowels](http://home.cc.umanitoba.ca/~krussll/phonetics/transcription/english-symbols/vowels.html)
+
 /i/,/ɪ/,/ɛ/,/æ/,/ɝ/,/ɑ/,/ɔ/,/ʊ/,/u/,/ə/
 
 |]

@@ -17,18 +17,16 @@ Notes about Veek!
 Veek! started out as a project to help me study(distract me from studying) for my comprehensive university exams.  It should, however, demonstrate Elm as a capable programming language and also demonstrate two design choices:
 
 Infinite worlds:
-inCavern :: {x::Float,y::Float} -> Bool
+inCavern : {x:Float,y:Float} -> Bool
 defines our infinite world.  Veek!'s game engine can be seen as a simple raytracing graphing calculator.  In fact, you can use it as such.  For example, just set inCavern = point.y > cos x and defaultPos = {x=0,y=(cos 0)+15} to explore the cosine curve from above.  In order for the game to work, caverns must have a top and a bottom, and Veek! is rather larger than 2pi, so if you would like to create a cosine shaped level of Veek! you would need something like inCavern = point.y > 30*cos (x/50) && point.y < 30*cos (x/50) + 100
 
 No random:
 Particles are created parametrically, based on the location of the walls.  Variation is created by examination of past particles.  There is no random used to generate new particles.
 
 Currently unsolved bugs:
-particle stamping, the particles sometimes get stamped onto the screen and move along with Veek!
+particle stamping, the particles sometimes get stamped onto the screen and move along with Veek.  This seems to be a bug in elm according to the google group.
 
 Veek! can see all particles, even ones that are arround a corner.
-
-No way to pause.
 
 Notes about elm:
 
@@ -46,7 +44,7 @@ All nodes are kept in memory at all times, waiting to hear a message, and they a
 
 The seccond problem, is noted in Evan's thesis, and we have to accept this as a choice.  There are no first class signals, nor is there a way to create a "duplicatable subnetwork".  In our particles signal, we would really like to make this Signal a list of Signals.  This is implicitly impossible.
 
-The third problem is the law of mutual dependency, which states that any time two signals rely mutually on eachothers values, they must be combined into one.  This is seen in the cases of cavernWallsAndVeekS, eatenParticlesAttemptsLivesAndTaskS, and particlesWithChangesS.  This is an unavoidable code ick with FRP and seems to get worse with the complexity of an application.
+The third problem is the law of mutual dependency, which states that any time two signals rely mutually on eachothers values, they must be combined into one.  This is seen in the cases of cavernWallsAndVeekS, eatenParticlesAttemptsLivesAndTaskS, and particlesWithChangesS.  This is an unavoidable code ick with FRP(when using non-cyclic graphs) and seems to get worse with the complexity of an application.
 
 -}
 module Veek where
@@ -60,39 +58,53 @@ data ParticleUpdate particle =
   | Eaten particle
   | Destroyed
 
+letters : String -> [String]
+letters = map (\x->x::[])
+
+type Alphabet = [String]
+
+type Task = {q:String,a:Alphabet}
+
+makeAlphabet : [Task] -> Alphabet
+makeAlphabet tasks =
+ let
+  addIfNotDup e acc =
+   if any (\e'->e'==e) acc
+    then acc
+    else e::acc
+  removeDups list =
+   foldl addIfNotDup [] list
+ in
+ removeDups <| concat  <| map (\task->task.a) tasks
+
+{- alphabet = ["a","b","c","d"]
+   tasks = [{q="What are the first three letters of the alphabet?",a=["a","b","c"]}
+            ,{q="What is the male parent?",a=["d","a","d"]}]
+   nextLevel = "Foo.html"
+   home = "Intro.html" -}
+veekGame : {alphabet : [String], tasks :[{q:String,a:[String]}],nextLevel:String,home:String} -> (Signal JSString, Signal Element)
 veekGame {alphabet, tasks, nextLevel, home} =
  let
-
-  {- alphabet = ["a","b","c","d"]
-
-  tasks = [{q="What are the first three letters of the alphabet?",a=["a","b","c"]}
-   ,{q="What is the male parent?",a=["d","a","d"]}]
-
-  nextLevel = "Foo.html"
-
-  home = "Intro.html" -}
-
   framerate = 10
-
   speed = 7
-
   numRays = 30
-
   maxParticles = 10
-
   particleSpeed = 3
-
   attemptsPerQuestion = 5
-
   startingLives = 3
-
   numTasks = length tasks
-
   -- hop is the coefficient used to determin the length of each hop while tracing a ray outwards.
   hop=2
 
   -- returns True if the point is inside the cavern
-  inCavern point = ((((round point.y) `div` 100) `rem` 2)==0)&&(cos ((distance {x=0,y=0} point)/110) > 0) || (((((round point.y) `div` 100) `rem` 2)==1)&&(cos ((distance {x=0,y=0} point)/110) < 0.5))
+  inCavern point =
+   ((((round point.y) `div` 100) `rem` 2)==0)
+                       &&
+   (cos ((distance {x=0,y=0} point)/110) > 0)
+                       ||
+   (((((round point.y) `div` 100) `rem` 2)==1)
+                       &&
+   (cos ((distance {x=0,y=0} point)/110) < 0.5))
 
   -- list of angles at which rays are tested.
   slices =
@@ -137,23 +149,47 @@ veekGame {alphabet, tasks, nextLevel, home} =
           then Just (nextPoint.x,nextPoint.y)
           else traceRay center collisionTest lineOfSightTest nextPoint )
 
-  cavernWalls veekV lineOfSight = traceRaysFrom {x=veekV.xp,y=veekV.yp} (not . inCavern) lineOfSight
+  cavernWalls veekV lineOfSight =
+   traceRaysFrom
+    {x=veekV.xp,y=veekV.yp}
+    (not . inCavern)
+    lineOfSight
 
+  drawCavernWalls cavernWallsV veekV =
+   let
+    toLines points =
+     traced (solid black)
+      $ path
+      $ map
+         (\(x,y)->(x-veekV.xp,0-(y-veekV.yp)))
+         points
+   in
+   map
+    toLines
+    cavernWallsV
 
-  drawCavernWalls cavernWallsV veekV = map (\points-> traced (solid black) $ path $ map (\(x,y)->(x-veekV.xp,0-(y-veekV.yp))) points) cavernWallsV 
-
-  -- Helper to come up with a vector of length one describing the direction which veek should move. Not to be confused with veekDirection(the way veek is facing.
+  -- Helper to come up with a vector of length one describing the direction which veek should move. Not to be confused with veekDirection(the way veek is facing).
   getDirection arrs =
    let coeff d = if | abs d == 1 -> 1/(sqrt 2)
                     | otherwise  -> 1 in
-   {x= round $ (toFloat arrs.x)*speed*(coeff (toFloat arrs.y))
-   ,y= round $ (toFloat arrs.y)*speed*(coeff (toFloat arrs.x))}
+   {x = round
+      $ (toFloat arrs.x)
+      * speed
+      * (coeff (toFloat arrs.y))
+   ,y = round
+      $ (toFloat arrs.y)
+      * speed
+      * (coeff (toFloat arrs.x))}
 
-  veekSpeed = lift getDirection Keyboard.arrows
+  paused = (\c->(rem (div c 2) 2)==1) <~ count (dropRepeats Keyboard.space)
+
+  pausable = dropWhen paused
+
+  veekSpeed = getDirection <~ pausable {x=0,y=0} Keyboard.arrows
 
   defaultPos = {x=0,y=0}
 
-  frames = fps framerate
+  frames = pausable 0 $ fps framerate
 
   speedingEveryFrame = lift2 (\a _ -> a) veekSpeed frames
 
@@ -164,8 +200,16 @@ veekGame {alphabet, tasks, nextLevel, home} =
     checkPoint2 = {x=newPos.x-10,y=newPos.y-10}
     checkPoint3 = {x=newPos.x+10,y=newPos.y-10}
     checkPoint4 = {x=newPos.x-10,y=newPos.y+10}
+    veekIsInCavern = -- I'd like to listen to veek's direction, and use the 3 points of veek to determine if he's hit a wall. Too lazy to figure this out right now.
+     inCavern checkPoint1
+              &&
+     inCavern checkPoint2
+              &&
+     inCavern checkPoint3
+              &&
+     inCavern checkPoint4
    in
-   if inCavern checkPoint1 && inCavern checkPoint2 && inCavern checkPoint3 && inCavern checkPoint4 -- I'd like to listen to veek's direction, and use the 3 points of veek to determine if he's hit a wall. Too lazy to figure this out right now. 
+   if veekIsInCavern
    then newPos
    else oldPos
 
@@ -175,7 +219,11 @@ veekGame {alphabet, tasks, nextLevel, home} =
    if | dir == {x=0,y=0} -> oldDir
       | otherwise -> dir
 
-  veekDirection = foldp maintainDirection {x=0,y=1} Keyboard.arrows
+  veekDirection =
+   foldp
+    maintainDirection
+    {x=0,y=1}
+    <| pausable {x=0,y=0} Keyboard.arrows
 
   combineVeekDims {x,y} speed direction =
    {xp = x
@@ -185,7 +233,7 @@ veekGame {alphabet, tasks, nextLevel, home} =
    ,yd=direction.y
    ,xd=direction.x}
 
-  veek = lift3 combineVeekDims veekPos veekSpeed veekDirection
+  veek = combineVeekDims <~ veekPos ~ veekSpeed ~ veekDirection
 
   veekOutline = path
    [(0-10,0-10)
@@ -213,20 +261,28 @@ veekGame {alphabet, tasks, nextLevel, home} =
 
   l !! i = head <| drop i l
 
-
+  -- YICK !!!!!!!!!!!!!
   particlesWithChanges (cavernWalls,veekV) pwc =
    let
     accParticles = pwc.particles
     numParticles = length accParticles
     newParticlesFromWall (x,y) =
      if inCavern {x=x,y=y-1}
-      then Just {xp=x,yp=y-1,letter= alphabet !! ((round x) `mod` (length alphabet))}
+      then
+       Just
+        {xp     = x
+        ,yp     = y-1
+        ,letter = alphabet !! ((round x) `mod` (length alphabet))}
       else Nothing
     newParticle pointsToAvoid = -- {xp=0,yp=0,letter="a"}
       let
        tryParticle particle acc prevDist =
         let
-         dist = minimum $ map (distance {x=particle.xp,y=particle.yp}) $ {x=veekV.xp,y=veekV.yp} ::pointsToAvoid
+         dist
+          = minimum
+          $ map
+             (distance {x=particle.xp,y=particle.yp})
+             <| {x=veekV.xp,y=veekV.yp} :: pointsToAvoid
         in
         if dist > prevDist
          then ([particle],dist)
@@ -239,7 +295,7 @@ veekGame {alphabet, tasks, nextLevel, home} =
        ([],0)
        $ map newParticlesFromWall $ concat $ cavernWalls
 
-    updateParticle particle = 
+    updateParticle particle =
      let
       updatedParticle = {particle|yp<-particle.yp-particleSpeed}
       updatedPoint = {x=updatedParticle.xp,y=updatedParticle.yp}
@@ -284,32 +340,33 @@ veekGame {alphabet, tasks, nextLevel, home} =
     [] ->  []
     _ -> (map (drawParticle veekV)  particlesV) -- ++ [toForm $ asText particlesV]
 
-  drawGameView (w,h) veekV lineOfSight cavernWallsV particlesV = collage (w-1) (h-1) $ [background w h,view lineOfSight]++drawCavernWalls cavernWallsV veekV++[veekForm veekV] ++ drawParticles veekV particlesV
+  drawGameView (w,h) veekV lineOfSight cavernWallsV particlesV paused = collage (w-1) (h-1) $ [background w h,view lineOfSight]++drawCavernWalls cavernWallsV veekV++[veekForm veekV] ++ drawParticles veekV particlesV -- ++ (if paused then [toForm <| plainText "Paused"]else []) -- bleh, damn stamping !
 
-  drawInfoView veekV eatenParticles task taskId attempts lives =
-    flow right $
-     [plainText "Veek!"
-     ,plainText "("
-     ,asText veekV.xp
-     ,plainText ","
-     ,asText veekV.yp
-     ,plainText ")  "
-     ,plainText "Attempts: "
-     ,asText attempts
-     ,plainText " Lives: "
-     ,asText lives
-     ,plainText " "
-     ,flow down <|
+  drawInfoView veekV eatenParticles task taskId attempts lives (w,h) =
+    flow down
+     [flow right
+      [plainText "Veek!"
+      ,plainText "("
+      ,asText veekV.xp
+      ,plainText ","
+      ,asText veekV.yp
+      ,plainText ")  "]
+     ,flow right
+      [plainText "Attempts: "
+      ,asText attempts
+      ,plainText " Lives: "
+      ,asText lives]
+     ,flow right
+      [flow down <|
        (if | taskId > 0 -> (\c->
-                         [flow right <| [plainText "Previous question: ",plainText (tasks !! (taskId - 1)).q,plainText " "] ++ (map plainText (tasks !! (taskId - 1)).a)] ++ c )
+                         [flow down <| [plainText "Previous question: ",text <| toText (tasks !! (taskId - 1)).q,flow right <| (map plainText (tasks !! (taskId - 1)).a)]] ++ c )
            | otherwise -> id)
-     [flow right <| [
+     [flow down <| [
       plainText "Current question: "
-     ,plainText task.q
-     ,plainText " "]
-    ++ map (\la->if any (\le->le == la) eatenParticles then plainText la else plainText "_ ") task.a ]]
+     ,text <| toText task.q
+     ,flow right <| map (\la->if any (\le->le == la) eatenParticles then plainText la else plainText "_ ") task.a ]]]]
 
-  gameViewSize = (\(w,h)->(w,h-{-heightOf infoView-} 50)) <~ Window.dimensions -- I'd like to rely on the hight of info view, but cannot figure out how to do so without creating cyclicity in the graph.
+  gameViewSize = (\(w,h)->(w,max (h-{-heightOf infoView-} 150) 350)) <~ Window.dimensions -- I'd like to rely on the hight of info view, but cannot figure out how to do so without creating cyclicity in the graph.
 
   lineOfSightS = (\(w,h)->(min w h) `div` 2) <~ gameViewSize
 
@@ -352,9 +409,9 @@ veekGame {alphabet, tasks, nextLevel, home} =
 
   livesS = .lives <~ eatenParticlesAttemptsLivesAndTaskS
 
-  infoView = drawInfoView <~ veek ~ eatenParticlesS ~ taskS ~ taskIdS ~ attemptsS ~ livesS
+  infoView = drawInfoView <~ veek ~ eatenParticlesS ~ taskS ~ taskIdS ~ attemptsS ~ livesS ~ Window.dimensions
 
-  gameView = drawGameView <~ gameViewSize ~ veek ~ lineOfSightS ~ cavernWallsS ~ particlesS
+  gameView = drawGameView <~ gameViewSize ~ veek ~ lineOfSightS ~ cavernWallsS ~ particlesS ~ paused
 
   redirectS = (\l tid ->
    if | l == 0 -> home

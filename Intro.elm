@@ -1,3 +1,4 @@
+module Intro where
 {-
 GPL 3.0 - Timothy Hobbs <timothyhobbs@seznam.cz>
 
@@ -18,6 +19,7 @@ import Time
 import Graphics.Input as Input
 import Keyboard
 import Char
+import Nav
 
 eek = text $ bold $ toText "eek!"
 
@@ -52,11 +54,11 @@ vs = plainText "    vs"
 exams = plainText "The Comprehensive Exams"
 usage = [markdown|
 
-Welcome to Veek!  Veek! is an educational game made to prepare you for the Charles University KAJL Batchelors Comprehensive Exams.
+Welcome to Veek!  Veek! is an educational game made to prepare you for the Charles University KAJL Bachelors Comprehensive Exams.
 
-Veek is a robot designed by the grand Über-European Educational Comitee for Progress Development Social Perfection Equality Democracy and Agricultural Fairness(ÜEECPDSPEDAF for short).  Veek's mission is to retreive particles of knowlege from the endless caverns of doom.
+Veek is a robot designed by the grand Über-European Educational Comittee for Progress Development Social Perfection Equality Democracy and Agricultural Fairness(ÜEECPDSPEDAF for short).  Veek's mission is to retreive particles of knowlege from the endless caverns of doom.
 
-Every level you will take a journy with Veek through the cavern of doom.  You will be presented with a set of questions and you'll have to collect particles in order to answer them.
+Every level you will take a journey with Veek through the cavern of doom.  You will be presented with a set of questions and you'll have to collect particles in order to answer them.
 
 Here's an example question. "When discussing word formation 'lubritection' is a _ _ _ _ _".  The correct answer is "blend".
 
@@ -73,49 +75,58 @@ levelLinks = [markdown|
 
 ### Introduction to Language (ÚJAZ)
 
-[Classification and History of Languages](LanguageClassification.html)
+[Classification and History of Languages](UJAZ/LanguageClassification.html)
 
-Basic linguistic terms
+[Isolating vs Inflective](UJAZ/IsolatingInflectiveIntro.html)
 
-### Phonetics and Phonology
+[The semiotic triangle](UJAZ/SemioticTriangleIntro.html)
+
+[Basic linguistic terms](UJAZ/LinguisticTermsIntro.html)
+
+### Sounds - Phonetics and Phonology
+
+Other resources: [Kevin Russell´s resources on phonetics](http://home.cc.umanitoba.ca/~krussll/phonetics/index.html)
 
 Note: This unit focuses on US English not on RP!
 
-[Phonemes found in the ten most frequent words](FirstTenWordsIntro.html)
+[Phonemes found in the ten most frequent words](Phonetics/FirstTenWordsIntro.html)
 
-Pure vowels
+[Plosives](Phonetics/PlosivesIntro.html)
 
-Diphthongs and triphtongs
+[Approximants](Phonetics/ApproximantsIntro.html)
 
-Plosives
+[Pure vowels](Phonetics/PureVowelsIntro.html)
 
-Fricatives
+[Fricatives](Phonetics/FricativesIntro.html)
 
-Affircates
+[Affricates](Phonetics/AffricatesIntro.html)
 
-Nasals
+[Diphthongs and triphtongs](Phonetics/DiphthongsIntro.html)
 
-Laterals
+[Nasals](Phonetics/NasalsIntro.html)
 
-Approximants
+[Laterals](Phonetics/LateralsIntro.html)
 
-Connected speech(linking, elision, juncture)
+[Connected speech(linking, elision, juncture)](ConnectedIntro.html)
 
-Word stress
+[Dentalization and darkness](Phonetics/DarklIntro.html)
 
-Sentence stress
+[Word stress](Phonetics/WordStressIntro.html)
 
-Weak forms
+[Sentence stress](Phonetics/SentenceStressIntro.html)
 
-Intonation
+[Weak forms](Phonetics/WeakFormsIntro.html)
+
+[Intonation](Phonetics/IntonationIntro.html)
 
 This information on Phonetics and Phonology is taken in part from the Longman Pronunciation Dictionary, 3rd Edition by J.C.Wells, in part from Wikipedia/Wiktionary and in part from Mgr. Kristýna Poesová, Ph.D.'s note's.
 
-|]
-licenceAndSource = [markdown|
-Veek! is opensource software.  It is released under the terms of the GPL3.0 by Timothy Hobbs, however individual levels may be sourced from other copyleft projects such as Wikipedia, see the licence information of each level in it's associated source file.
+### Parts of words, origins of words - Lexicology
 
-The source code for Veek! can be downloaded [here](https://github.com/timthelion/veek).
+### Words and how they change in different places - Morphology
+
+### Strings of words - Syntax
+
 |]
 
 animateIntro f
@@ -129,7 +140,7 @@ animateIntro f
  ( if | f <  10-> []
       | f >= 10-> [levelLinks]) ++
  ( if | f <  10-> []
-      | f >= 10-> [licenceAndSource])
+      | f >= 10-> [Nav.footer])
 
 frame = foldp (\_ f->f+1) 0 (every (0.7 * second))
 

@@ -7,13 +7,15 @@ module Plosives where
 import Veek
 import JavaScript as JS
 
+ls=Veek.letters
+
 (redirect,game) = Veek.veekGame
  {alphabet = ["/","i","ɪ","ɛ","æ","ɝ","ɑ","ɔ","ʊ","u","ə","aɪ","v","ð","n","w","j","d","t","b","p","g","k"]
  ,nextLevel = "Victory.html"
  ,home = "Intro.html"
  ,tasks =
-   [aquiver - /əkwɪvɝ/
-   ,bookie - /bʊki/
+   [{q="aquiver",a=ls "/əkwɪvɝ/"
+   ,{q="bookie",a="/bʊki/"
    ,
    "i","ɪ","ɛ","æ","ɝ","ɑ","ɔ","ʊ","u","ə"]}
 

@@ -13,14 +13,16 @@ GPL 3.0 - Timothy Hobbs <timothyhobbs@seznam.cz>
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module FirstTenWordsIntro where
-import MouthChart
-import VowelChart
+module Phonetics.FirstTenWordsIntro where
+import Phonetics.MouthChart
+import Phonetics.VowelChart
 import Vectors
 import Nav
 
+vc : {h : Int, frontClose : (Float,Float) , centralClose : (Float, Float), backClose : (Float,Float),frontHalfClose : (Float,Float),centralHalfClose : (Float,Float),backHalfClose : (Float,Float),frontHalfOpen : (Float,Float),centralHalfOpen : (Float,Float),backHalfOpen : (Float,Float),frontOpen : (Float,Float),centralOpen : (Float,Float),backOpen : (Float,Float),forms : [Form]}
 vc = VowelChart.vowelChart 400
 
+main : Element
 main = flow down [Nav.nav, [markdown|
 
 ## The ten most common words in English
@@ -56,7 +58,7 @@ Here are the 15 most common words from [this transcript of Episode 16 Season 29 
 We see here that you and I are now at the top of our list, when they previously didn't appear in the entire document even once!  We also have one name on the list.  Since phonetics is primarilly a study of spoken English, we will focus on the seccond list in this lesson, minus that one name of course(I'll replace it with in /ɪn/).
 
 
-Phonemes introduced this lesson: /j/,/u/,/aɪ/,/t/,/u/,/ð/,/ə/,/ɪ/,/w/,/v/,/æ/
+Phonemes introduced this lesson: /j/,/u/,/aɪ/,/t/,/ð/,/ə/,/ɪ/,/w/,/v/,/æ/,/n/
 
 ## The Vowels
 
@@ -67,17 +69,17 @@ Phonemes introduced this lesson: /j/,/u/,/aɪ/,/t/,/u/,/ð/,/ə/,/ɪ/,/w/,/v/,/�
 #### /ɪ/ near-close near-front unrounded vowel
 
 |]
- ,collage 400 vc.h <| vc.forms ++ [move ((\(x,y)->(x+15,y-15)) vc.frontClose) <| toForm <| plainText "/ɪ/"]
+ ,VowelChart.vowel ((\(x,y)->(x+15,y-15)) vc.frontClose) "/ɪ/"
  ,[markdown|
 
 #### /u/ close back rounded vowel
 
 /u/ - you, to, boot, toot, loot.
 
-Note: those same examples would be lengthened to /uː/ in RP.
+Note: those same examples would be shown with a length mark /uː/ in RP.  American phoneticians do not typically use length marks.
 
 |]
- ,collage 400 vc.h <| vc.forms ++ [move ((\(x,y)->(x-15,y-15)) vc.backClose) <| toForm <| plainText "/u/"]
+ ,VowelChart.vowel ((\(x,y)->(x-15,y-15)) vc.backClose) "/u/"
  ,[markdown|
 
 #### /ə/ and /ʌ/. /ə/ schwa.  mid central vowel.
@@ -87,7 +89,7 @@ Note: those same examples would be lengthened to /uː/ in RP.
 A very common vowel sound, though a bit problematic.  You will see in most dictionaries of AmE some words being transcribed with /ʌ/ and others being transcribed with /ə/.  Speakers of AmE do not distinguish between /ʌ/ and /ə/. In this game I do not transcribe with /ʌ/ at all using /ə/ in all cases.  [According to some linguists](http://linguisticmystic.com/2012/10/17/whats-the-difference-between-schwa-and-wedge/) we should use /ʌ/ in stressed cases and /ə/ in unstressed cases.  It is also interesting to note, that words commonly transcribed with /ə/ often have a greater allaphonic variation than words commonly transcribed with /ʌ/.  For example the word banana, typically transcribed /bən'næn ə/ (or /bə'nɑːn ə/ in BrE) may also be pronounced /bɪn'næn ə/, /bɑ'næn ə/ or even something approaching /bæn'næn ə/.  However "what" can ONLY be pronounce /wət/(/wʌt/) in AmE.  We are of course speaking only of allaphonic variation within a given accent.  In BrE, the word "what" is pronounced as /ʍɒt/, and in Australian English it is pronounced as /wɔt/.
 
 |]
- ,collage 400 vc.h <| vc.forms ++ [move ((\(x1,y1) (x2,y2)->(x1,y1+(y2-y1)/2)) vc.centralHalfClose vc.centralHalfOpen) <| toForm <| plainText "/ə/"]
+ ,VowelChart.vowel ((\(x1,y1) (x2,y2)->(x1,y1+(y2-y1)/2)) vc.centralHalfClose vc.centralHalfOpen) "/ə/"
  ,[markdown|
 
 #### /æ/ near-open front unrounded vowel
@@ -97,7 +99,7 @@ A very common vowel sound, though a bit problematic.  You will see in most dicti
 This is the sound of a healthy babies cry.  When you change a babies diaper it should say /æ/!
 
 |]
--- ,collage 400 vc.h <| vc.forms ++ [move ((\(x1,y1) (x2,y2)->(x1+(x2-x1)/2,y1+(y2-y1)/2)) vc.frontOpen vc.frontHalfOpen) <| toForm <| plainText "/æ/"]
+ ,VowelChart.vowel ((\(x1,y1) (x2,y2)->(x1+(x2-x1)/2,y1+(y2-y1)/2)) vc.frontOpen vc.frontHalfOpen) "/æ/"
  ,[markdown|
 
 #### /aɪ/ - closing diphthong
@@ -109,7 +111,11 @@ OR   rice, price, ice
  Note: Due to prefortis shortening the latter examples have a slightly different pronunciation.  I, and ride are pronounced with [aɪ] where as rice is pronounce with [əɪ]
 
 |]
- ,collage 400 vc.h <| vc.forms ++ ((\(x1,y1) (x2,y2) (x3,y3) (x4,y4)->(\(sx,sy) (ex,ey) ->[move (sx,sy+10) <| toForm <| plainText "/aɪ/", Vectors.shortArrow (sx,sy+20) (ex,ey)])(x1+(x2-x1)/2,y1+(y2-y1)/2) (x3+(x4-x3)/2,y3+(y4-y3)/2)) vc.frontOpen vc.centerOpen vc.frontHalfClose vc.centerHalfClose)
+ ,
+  VowelChart.diphthong
+   {start=Vectors.add (Vectors.average vc.frontOpen vc.centralOpen) (0,40)
+   ,end=Vectors.add (Vectors.average vc.frontHalfClose vc.centralHalfClose) (0,0-50)
+   ,symbol="/aɪ/"}
  ,[markdown|
 
 ## The Consonants
@@ -121,9 +127,10 @@ OR   rice, price, ice
 /j/ - you, yes, yesterday, canyon, yard
 
 |]
- ,MouthChart.mouth
-   [move MouthChart.placesOfArticulation.palat <| toForm <| plainText "j"
-   ,Vectors.shortArrow MouthChart.placesOfArticulation.toungBack MouthChart.placesOfArticulation.palat]
+ ,MouthChart.articulation
+   {organ=MouthChart.toungBack
+   ,place=MouthChart.palat
+   ,result="/j/"}
  ,[markdown|
 
 #### /t/ voiceless alveolar plosive
@@ -131,11 +138,10 @@ OR   rice, price, ice
 /t/ time, talk, teach, touch, tangle, too, tooth, tit for tat
 
 |]
-
- ,MouthChart.mouth
-   [move MouthChart.placesOfArticulation.alveolarRidge <| toForm <| plainText "t"
-   ,Vectors.shortArrow MouthChart.placesOfArticulation.toungTip MouthChart.placesOfArticulation.alveolarRidge]
-
+ ,MouthChart.articulation
+   {organ = MouthChart.toungTip
+   ,place = MouthChart.alveolarRidge
+   ,result = "/t/"}
  ,[markdown|
 
 #### /v/ voiced labiodental fricative
@@ -143,9 +149,10 @@ OR   rice, price, ice
 /v/ very, verbose, every, even, eve, ever, average
 
 |]
- ,MouthChart.mouth
-   [move MouthChart.placesOfArticulation.alveolarRidge <| toForm <| plainText "v"
-   ,Vectors.shortArrow MouthChart.placesOfArticulation.toungTip MouthChart.placesOfArticulation.alveolarRidge]
+ ,MouthChart.articulation
+   {organ = MouthChart.lowerLip
+   ,place = MouthChart.upperTooth
+   ,result = "/v/"}
  ,[markdown|
 
 #### /ð/ voiced dental non-sibilant fricative
@@ -153,9 +160,27 @@ OR   rice, price, ice
 /ð/ - the, that, father, lather, bathe, gather
 
 |]
- ,MouthChart.mouth
-   [move MouthChart.placesOfArticulation.upperTooth <| toForm <| plainText "ð"
-   ,Vectors.shortArrow MouthChart.placesOfArticulation.toungTip MouthChart.placesOfArticulation.upperTooth]
+ ,MouthChart.articulation
+   {organ = MouthChart.toungTip
+   ,place = MouthChart.upperTooth
+   ,result="/ð/"}
+ ,[markdown|
+
+#### /w/ Labio-velar approximant
+
+/w/ - water, wife, suede, sweet, sworn
+
+#### /n/ Alveolar nasal
+
+/n/ - no, not, neet, nothing, into, in, interest, on, announce
+|]
+ ,MouthChart.articulation
+   {organ=MouthChart.toungTip
+   ,place=MouthChart.upperTooth
+   ,result="/n/"}
  ,[markdown|
 [Play level](FirstTenWords.html)
-|]]
+
+
+|]
+ ,Nav.footer]
