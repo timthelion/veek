@@ -5,6 +5,7 @@ import JavaScript as JS
 
 ls = Veek.letters
 
+tasks' : [{q:String,a:[String]}]
 tasks' =
  [{q="The founder of the PLC was"
   ,a=ls "mathesius"}
@@ -21,7 +22,7 @@ tasks' =
  ,{q="Trubetzkoy died in the year"
   ,a=ls "1938"}
  ,{q="The study of language as a static structure is "
-  ,a="synchronic"}
+  ,a=ls "synchronic"}
  ,{q="The third PLC member mentioned in the intro was named"
   ,a=ls "jackobson"}
  ,{q="He was born in the year"
@@ -37,6 +38,6 @@ tasks' =
  ,tasks = tasks'}
 
 foreign export jsevent "redirect"
-   redirect : Signal JSString
+   redirect : Signal JS.JSString
 
 main = game

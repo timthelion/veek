@@ -82,7 +82,7 @@ makeAlphabet tasks =
             ,{q="What is the male parent?",a=["d","a","d"]}]
    nextLevel = "Foo.html"
    home = "Intro.html" -}
-veekGame : {alphabet : [String], tasks :[{q:String,a:[String]}],nextLevel:String,home:String} -> (Signal JSString, Signal Element)
+veekGame : {alphabet : [String], tasks :[{q:String,a:[String]}],nextLevel:String,home:String} -> (Signal JS.JSString, Signal Element)
 veekGame {alphabet, tasks, nextLevel, home} =
  let
   framerate = 10
@@ -114,7 +114,7 @@ veekGame {alphabet, tasks, nextLevel, home} =
    in
    slices' numRays
 
-  distance p1 p2 = sqrt $ ((p1.x-p2.x)^2) + ((p1.y-p2.y)^2)
+  distance p1 p2 = sqrt <| ((p1.x-p2.x)^2) + ((p1.y-p2.y)^2)
 
   -- traceRaysFrom : {x : number, y : number} -> ({x:number,y:number}->Bool)  -> number -> [[(number,number)]]
   traceRaysFrom start collisionTest lineOfSight =
@@ -130,8 +130,8 @@ veekGame {alphabet, tasks, nextLevel, home} =
     hits = map (traceRay start collisionTest lineOfSightTest) rays
     unJust (Just v) = v
     unJustifyList l =  map unJust l
-    groupsOfJust list = filter (\l->l /= []) $ split [Nothing] list
-    groupByJust list = map unJustifyList $ groupsOfJust list
+    groupsOfJust list = filter (\l->l /= []) <| split [Nothing] list
+    groupByJust list = map unJustifyList <| groupsOfJust list
    in
    groupByJust hits
 
@@ -153,14 +153,14 @@ veekGame {alphabet, tasks, nextLevel, home} =
    traceRaysFrom
     {x=veekV.xp,y=veekV.yp}
     (not . inCavern)
-    lineOfSight
+    (toFloat lineOfSight)
 
   drawCavernWalls cavernWallsV veekV =
    let
     toLines points =
      traced (solid black)
-      $ path
-      $ map
+      <| path
+      <| map
          (\(x,y)->(x-veekV.xp,0-(y-veekV.yp)))
          points
    in
@@ -169,17 +169,23 @@ veekGame {alphabet, tasks, nextLevel, home} =
     cavernWallsV
 
   -- Helper to come up with a vector of length one describing the direction which veek should move. Not to be confused with veekDirection(the way veek is facing).
+  getDirection : {x:Int,y:Int} -> {x:Float,y:Float}
   getDirection arrs =
-   let coeff d = if | abs d == 1 -> 1/(sqrt 2)
-                    | otherwise  -> 1 in
-   {x = round
-      $ (toFloat arrs.x)
+   let
+    coeff : Float -> Float
+    coeff d = if | abs d == 1 -> 1/(sqrt 2)
+                 | otherwise  -> 1
+    x:Float
+    x = (toFloat arrs.x)
       * speed
       * (coeff (toFloat arrs.y))
-   ,y = round
-      $ (toFloat arrs.y)
+    y:Float
+    y = (toFloat arrs.y)
       * speed
-      * (coeff (toFloat arrs.x))}
+      * (coeff (toFloat arrs.x))
+   in
+   {x=x
+   ,y=y}
 
   paused = (\c->(rem (div c 2) 2)==1) <~ count (dropRepeats Keyboard.space)
 
@@ -189,9 +195,10 @@ veekGame {alphabet, tasks, nextLevel, home} =
 
   defaultPos = {x=0,y=0}
 
-  frames = pausable 0 $ fps framerate
+  frames = pausable 0 <| fps framerate
 
-  speedingEveryFrame = lift2 (\a _ -> a) veekSpeed frames
+  speedingEveryFrame : Signal {x:Float,y:Float}
+  speedingEveryFrame = sampleOn frames veekSpeed
 
   updatePos speed oldPos =
    let
@@ -213,6 +220,7 @@ veekGame {alphabet, tasks, nextLevel, home} =
    then newPos
    else oldPos
 
+  veekPos : Signal {x:Float,y:Float}
   veekPos = foldp updatePos defaultPos speedingEveryFrame
 
   maintainDirection dir oldDir =
@@ -252,12 +260,12 @@ veekGame {alphabet, tasks, nextLevel, home} =
 
   veekForm veekV
    = rotate (veekAngle veekV)
-   $ traced (solid red) veekOutline
+   <| traced (solid red) veekOutline
 
-  background w h = filled black $ rect w h
+  background w h = filled black <| rect w h
 
   view lineOfSight =
-   filled white $ circle lineOfSight
+   filled white <| circle <| toFloat lineOfSight
 
   l !! i = head <| drop i l
 
@@ -280,7 +288,7 @@ veekGame {alphabet, tasks, nextLevel, home} =
         let
          dist
           = minimum
-          $ map
+          <| map
              (distance {x=particle.xp,y=particle.yp})
              <| {x=veekV.xp,y=veekV.yp} :: pointsToAvoid
         in
@@ -288,12 +296,12 @@ veekGame {alphabet, tasks, nextLevel, home} =
          then ([particle],dist)
          else (acc,prevDist)
       in
-      fst $ foldr (\p (acc,prevDist)-> 
+      fst <| foldr (\p (acc,prevDist)-> 
               case p of
                 Just particle -> tryParticle particle acc prevDist
                 Nothing -> (acc,prevDist))
        ([],0)
-       $ map newParticlesFromWall $ concat $ cavernWalls
+       <| map newParticlesFromWall <| concat <| cavernWalls
 
     updateParticle particle =
      let
@@ -308,9 +316,9 @@ veekGame {alphabet, tasks, nextLevel, home} =
       withNewParticles eaten =
        let
         particleToPoint particle = {x=particle.xp,y=particle.yp}
-        newParticleA = newParticle $ map particleToPoint accParticles
+        newParticleA = newParticle <| map particleToPoint accParticles
         newParticleB = newParticle ((map particleToPoint newParticleA) ++ (map particleToPoint accParticles))
-        particleListInCavern pl  = any (\p -> inCavern $ particleToPoint p) pl
+        particleListInCavern pl  = any (\p -> inCavern <| particleToPoint p) pl
        in
        (if particleCreated
         then updatedParticles
@@ -325,7 +333,7 @@ veekGame {alphabet, tasks, nextLevel, home} =
      in
      case updateParticle particle of
       Updated particle' -> (particle'::updatedParticles,particleCreated,particlesEaten)
-      Eaten etParticle -> withNewParticles $ etParticle :: particlesEaten
+      Eaten etParticle -> withNewParticles <| etParticle :: particlesEaten
       Destroyed -> withNewParticles particlesEaten
     (particles,_,eaten) = foldl updateParticles ([],False,[]) accParticles
    in
@@ -333,14 +341,14 @@ veekGame {alphabet, tasks, nextLevel, home} =
     []   -> {particles=newParticle [],eaten=[]}
     _    -> {particles=particles,eaten=eaten}
 
-  drawParticle veekV particle = move (particle.xp-veekV.xp,particle.yp-veekV.yp) $ toForm $ plainText particle.letter
+  drawParticle veekV particle = move (particle.xp-veekV.xp,particle.yp-veekV.yp) <| toForm <| plainText particle.letter
 
   drawParticles veekV particlesV =
    case particlesV of
     [] ->  []
-    _ -> (map (drawParticle veekV)  particlesV) -- ++ [toForm $ asText particlesV]
+    _ -> (map (drawParticle veekV)  particlesV) -- ++ [toForm <| asText particlesV]
 
-  drawGameView (w,h) veekV lineOfSight cavernWallsV particlesV paused = collage (w-1) (h-1) $ [background w h,view lineOfSight]++drawCavernWalls cavernWallsV veekV++[veekForm veekV] ++ drawParticles veekV particlesV -- ++ (if paused then [toForm <| plainText "Paused"]else []) -- bleh, damn stamping !
+  drawGameView (w,h) veekV lineOfSight cavernWallsV particlesV paused = collage (w-1) (h-1) <| [background (toFloat w) (toFloat h),view lineOfSight]++drawCavernWalls cavernWallsV veekV++[veekForm veekV] ++ drawParticles veekV particlesV
 
   drawInfoView veekV eatenParticles task taskId attempts lives (w,h) =
     flow down
@@ -366,15 +374,17 @@ veekGame {alphabet, tasks, nextLevel, home} =
      ,text <| toText task.q
      ,flow right <| map (\la->if any (\le->le == la) eatenParticles then plainText la else plainText "_ ") task.a ]]]]
 
-  gameViewSize = (\(w,h)->(w,max (h-{-heightOf infoView-} 300) 350)) <~ Window.dimensions -- I'd like to rely on the hight of info view, but cannot figure out how to do so without creating cyclicity in the graph.
+  gameViewSize : Signal (Int,Int)
+  gameViewSize = (\(w,h)->(w,min (h-{-heightOf infoView-} 300) 350)) <~ Window.dimensions -- I'd like to rely on the hight of info view, but cannot figure out how to do so without creating cyclicity in the graph.
 
+  lineOfSightS : Signal Int
   lineOfSightS = (\(w,h)->(min w h) `div` 2) <~ gameViewSize
 
   cavernWallsS = cavernWalls <~ veek ~ lineOfSightS
 
   cavernWallsAndVeekS = (\cavernWalls veekV->(cavernWalls,veekV)) <~ cavernWallsS ~ veek
 
-  particlesWithChangesS = foldp particlesWithChanges {particles=[]} cavernWallsAndVeekS
+  particlesWithChangesS = foldp particlesWithChanges {particles=[],eaten=[]} cavernWallsAndVeekS
 
   particlesS = (\pwc->pwc.particles) <~ particlesWithChangesS
 
