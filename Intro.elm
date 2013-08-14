@@ -40,7 +40,6 @@ veekVertexes f =
      | otherwise -> [(veekWidth `div` 4,0-(veekHeight `div` 2))
                     ,(0,0-(textHeight `div` 3))])
 
-
 veekOutline f = path (veekVertexes f)
 
 veekV f =
@@ -75,19 +74,29 @@ levelLinks = [markdown|
 
 ### Introduction to Language (ÚJAZ)
 
-[Classification and History of Languages](UJAZ/LanguageClassification.html)
+[Human language](UJAZ/HumanLanguageIntro.html)
 
-[Isolating vs Inflective](UJAZ/IsolatingInflectiveIntro.html)
+[Language history and geography](UJAZ/HistoryAndGeographyIntro.html)
+
+[The study of language as a science, PLC](UJAZ/LinguisticsIntro.html)
+
+[Language typology: Isolating vs Inflective](UJAZ/IsolatingInflectiveIntro.html)
 
 [The semiotic triangle](UJAZ/SemioticTriangleIntro.html)
 
-[Basic linguistic terms](UJAZ/LinguisticTermsIntro.html)
+[Langue and Parole](UJAZ/SaussureIntro.html)
+
+### Written language
+
+[Writing systems](Writing/BasicTermsIntro.html)
 
 ### Sounds - Phonetics and Phonology
 
 Other resources: [Kevin Russell´s resources on phonetics](http://home.cc.umanitoba.ca/~krussll/phonetics/index.html)
 
 Note: This unit focuses on US English not on RP!
+
+[Basic terms](Phonetics/BasicTermsIntro.html)
 
 [Phonemes found in the ten most frequent words](Phonetics/FirstTenWordsIntro.html)
 
@@ -123,9 +132,21 @@ This information on Phonetics and Phonology is taken in part from the Longman Pr
 
 ### Parts of words, origins of words - Lexicology
 
+[Basic terms](Lexicology/BasicTermsIntro.html)
+
+[Word formation processes](Lexicology/WordFormationIntro.html)
+
+[Relationships between words](Lexicology/RelationsIntro.html)
+
 ### Words and how they change in different places - Morphology
 
+[Basic terms](Morphology/BasicTermsIntro.html)
+
 ### Strings of words - Syntax
+
+[Basic terms](Syntax/BasicTermsIntro.html)
+
+[Functional Sentence perspective](Syntax/FSPIntro.html)
 
 |]
 

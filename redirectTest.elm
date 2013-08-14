@@ -1,1 +1,12 @@
-../../.git/annex/objects/vx/MM/SHA256E-s310--97399d643412eee3fe1c4b75ce2c5b99a3466f04ffbda7b503505c7efc525d11.elm/SHA256E-s310--97399d643412eee3fe1c4b75ce2c5b99a3466f04ffbda7b503505c7efc525d11.elm
+import Graphics.Input as Input
+import JavaScript as JS
+
+(fieldS,uriS) = Input.field "Enter URL"
+
+(buttonE,pressedS) = Input.button "Go!"
+
+redirect = JS.fromString <~ sampleOn pressedS uriS 
+foreign export jsevent "redirect"
+  redirect : Signal JSString
+  
+main = (\fieldV->flow right [fieldV,buttonE])<~fieldS

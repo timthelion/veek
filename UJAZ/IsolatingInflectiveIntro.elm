@@ -13,7 +13,7 @@ GPL 3.0 - Timothy Hobbs <timothyhobbs@seznam.cz>
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module UJAZ.InflectiveIsolatingIntro where
+module UJAZ.IsolatingInflectiveIntro where
 import Nav
 main = flow down [Nav.nav,
  [markdown|
@@ -21,7 +21,7 @@ main = flow down [Nav.nav,
 ##### Language typology
 
 
-Languages are classified morphologically based on how they package gramatical information.  Do they include this information within the word through inflection, or do they have sepparate words to describe tense, gender, case ect.
+Languages are classified morphologically based on how they package grammatical information.  Do they include this information within the word through inflection, or do they have separate words to describe tense, gender, case ect.
 
 From an intra-linguistic standpoint we classify languages along a spectrum from _analytic_ to _synthetic_.
 
@@ -38,4 +38,4 @@ Synthetic languages are at the other extreme.  There are two types of synthetic 
 
 [Play level](IsolatingInflective.html)
 
-|]
+|]]

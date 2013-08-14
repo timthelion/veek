@@ -13,7 +13,7 @@ GPL 3.0 - Timothy Hobbs <timothyhobbs@seznam.cz>
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module UJAZ.WritingSystemsIntro where
+module Writing.BasicTermsIntro where
 import Nav
 main = flow down [Nav.nav,
  [markdown|

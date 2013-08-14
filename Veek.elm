@@ -366,7 +366,7 @@ veekGame {alphabet, tasks, nextLevel, home} =
      ,text <| toText task.q
      ,flow right <| map (\la->if any (\le->le == la) eatenParticles then plainText la else plainText "_ ") task.a ]]]]
 
-  gameViewSize = (\(w,h)->(w,max (h-{-heightOf infoView-} 150) 350)) <~ Window.dimensions -- I'd like to rely on the hight of info view, but cannot figure out how to do so without creating cyclicity in the graph.
+  gameViewSize = (\(w,h)->(w,max (h-{-heightOf infoView-} 300) 350)) <~ Window.dimensions -- I'd like to rely on the hight of info view, but cannot figure out how to do so without creating cyclicity in the graph.
 
   lineOfSightS = (\(w,h)->(min w h) `div` 2) <~ gameViewSize
 
