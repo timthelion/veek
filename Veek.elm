@@ -68,23 +68,29 @@ type Task = {q:String,a:Alphabet}
 makeAlphabet : [Task] -> Alphabet
 makeAlphabet tasks =
  let
+  addIfNotDup : String -> [String] -> [String]
   addIfNotDup e acc =
    if any (\e'->e'==e) acc
     then acc
     else e::acc
+  removeDups : [String] -> [String]
   removeDups list =
    foldl addIfNotDup [] list
  in
- removeDups <| concat  <| map (\task->task.a) tasks
+ removeDups <| concat <| map (\task->task.a) tasks
 
 {- alphabet = ["a","b","c","d"]
    tasks = [{q="What are the first three letters of the alphabet?",a=["a","b","c"]}
             ,{q="What is the male parent?",a=["d","a","d"]}]
    nextLevel = "Foo.html"
    home = "Intro.html" -}
-veekGame : {alphabet : [String], tasks :[{q:String,a:[String]}],nextLevel:String,home:String} -> (Signal JS.JSString, Signal Element)
-veekGame {alphabet, tasks, nextLevel, home} =
+veekGame : {alphabet : Alphabet, tasks :[{q:String,a:[String]}],nextLevel:String,home:String} -> (Signal JS.JSString, Signal Element)
+veekGame inits =
  let
+  alphabet=inits.alphabet
+  tasks= inits.tasks
+  nextLevel=inits.nextLevel
+  home=inits.home
   framerate = 10
   speed = 7
   numRays = 30
@@ -161,7 +167,7 @@ veekGame {alphabet, tasks, nextLevel, home} =
      traced (solid black)
       <| path
       <| map
-         (\(x,y)->(x-veekV.xp,0-(y-veekV.yp)))
+         (\(x,y)->(x-veekV.xp,y-veekV.yp))
          points
    in
    map
@@ -249,14 +255,14 @@ veekGame {alphabet, tasks, nextLevel, home} =
    ,(10,0-10)]
 
   veekAngle veekV =
-   if | veekV.xd ==  1  && veekV.yd ==  0  -> (pi*3)/2
-      | veekV.xd ==  1  && veekV.yd ==  1  -> (pi*7)/4
-      | veekV.xd ==  1  && veekV.yd == 0-1 -> (pi*5)/4
-      | veekV.xd ==  0  && veekV.yd ==  1  -> 0 
-      | veekV.xd ==  0  && veekV.yd == 0-1 -> pi
-      | veekV.xd == 0-1 && veekV.yd ==  0  -> pi/2
-      | veekV.xd == 0-1 && veekV.yd ==  1  -> pi/4
-      | veekV.xd == 0-1 && veekV.yd == 0-1 -> (pi*3)/4
+   if | veekV.xd ==  1  && veekV.yd ==  0  -> pi/2
+      | veekV.xd ==  1  && veekV.yd ==  1  -> (pi*3)/4
+      | veekV.xd ==  1  && veekV.yd == 0-1 -> pi/4
+      | veekV.xd ==  0  && veekV.yd ==  1  -> pi
+      | veekV.xd ==  0  && veekV.yd == 0-1 -> 0
+      | veekV.xd == 0-1 && veekV.yd ==  0  -> (pi*3)/2
+      | veekV.xd == 0-1 && veekV.yd ==  1  -> (pi*5)/4
+      | veekV.xd == 0-1 && veekV.yd == 0-1 -> (pi*7)/4
 
   veekForm veekV
    = rotate (veekAngle veekV)
@@ -280,7 +286,7 @@ veekGame {alphabet, tasks, nextLevel, home} =
        Just
         {xp     = x
         ,yp     = y-1
-        ,letter = alphabet !! ((round x) `mod` (length alphabet))}
+        ,letter = alphabet !! ((round x) `mod`  (length alphabet))}
       else Nothing
     newParticle pointsToAvoid = -- {xp=0,yp=0,letter="a"}
       let
@@ -375,7 +381,7 @@ veekGame {alphabet, tasks, nextLevel, home} =
      ,flow right <| map (\la->if any (\le->le == la) eatenParticles then plainText la else plainText "_ ") task.a ]]]]
 
   gameViewSize : Signal (Int,Int)
-  gameViewSize = (\(w,h)->(w,min (h-{-heightOf infoView-} 300) 350)) <~ Window.dimensions -- I'd like to rely on the hight of info view, but cannot figure out how to do so without creating cyclicity in the graph.
+  gameViewSize = (\(w,h)->(w,min (h-{-heightOf infoView-} 250) 350)) <~ Window.dimensions -- I'd like to rely on the hight of info view, but cannot figure out how to do so without creating cyclicity in the graph.
 
   lineOfSightS : Signal Int
   lineOfSightS = (\(w,h)->(min w h) `div` 2) <~ gameViewSize
