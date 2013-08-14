@@ -38,6 +38,6 @@ tasks' =
  ,tasks = tasks'}
 
 foreign export jsevent "redirect"
-   redirect : Signal JS.JSString
+   redirect : Signal JSString
 
 main = game

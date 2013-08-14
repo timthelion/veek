@@ -68,12 +68,12 @@ type Task = {q:String,a:Alphabet}
 makeAlphabet : [Task] -> Alphabet
 makeAlphabet tasks =
  let
-  addIfNotDup : String -> [String] -> [String]
+  --addIfNotDup : String -> [String] -> [String]
   addIfNotDup e acc =
    if any (\e'->e'==e) acc
     then acc
     else e::acc
-  removeDups : [String] -> [String]
+  --removeDups : [String] -> [String]
   removeDups list =
    foldl addIfNotDup [] list
  in
@@ -84,7 +84,7 @@ makeAlphabet tasks =
             ,{q="What is the male parent?",a=["d","a","d"]}]
    nextLevel = "Foo.html"
    home = "Intro.html" -}
-veekGame : {alphabet : Alphabet, tasks :[{q:String,a:[String]}],nextLevel:String,home:String} -> (Signal JS.JSString, Signal Element)
+veekGame : {alphabet : Alphabet, tasks :[{q:String,a:[String]}],nextLevel:String,home:String} -> (Signal JSString, Signal Element)
 veekGame inits =
  let
   alphabet=inits.alphabet
@@ -167,7 +167,7 @@ veekGame inits =
      traced (solid black)
       <| path
       <| map
-         (\(x,y)->(x-veekV.xp,y-veekV.yp))
+         (\(x,y)->(x-veekV.xp,0-(y-veekV.yp)))
          points
    in
    map
@@ -175,17 +175,17 @@ veekGame inits =
     cavernWallsV
 
   -- Helper to come up with a vector of length one describing the direction which veek should move. Not to be confused with veekDirection(the way veek is facing).
-  getDirection : {x:Int,y:Int} -> {x:Float,y:Float}
+  --getDirection : {x:Int,y:Int} -> {x:Float,y:Float}
   getDirection arrs =
    let
-    coeff : Float -> Float
+    --coeff : Float -> Float
     coeff d = if | abs d == 1 -> 1/(sqrt 2)
                  | otherwise  -> 1
-    x:Float
+    --x:Float
     x = (toFloat arrs.x)
       * speed
       * (coeff (toFloat arrs.y))
-    y:Float
+    --y:Float
     y = (toFloat arrs.y)
       * speed
       * (coeff (toFloat arrs.x))
@@ -203,7 +203,7 @@ veekGame inits =
 
   frames = pausable 0 <| fps framerate
 
-  speedingEveryFrame : Signal {x:Float,y:Float}
+  --speedingEveryFrame : Signal {x:Float,y:Float}
   speedingEveryFrame = (\_ a->a)<~ frames ~ veekSpeed
 
   updatePos speed oldPos =
@@ -226,7 +226,7 @@ veekGame inits =
    then newPos
    else oldPos
 
-  veekPos : Signal {x:Float,y:Float}
+  --veekPos : Signal {x:Float,y:Float}
   veekPos = foldp updatePos defaultPos speedingEveryFrame
 
   maintainDirection dir oldDir =
@@ -255,14 +255,14 @@ veekGame inits =
    ,(10,0-10)]
 
   veekAngle veekV =
-   if | veekV.xd ==  1  && veekV.yd ==  0  -> pi/2
+   (if | veekV.xd ==  1  && veekV.yd ==  0  -> pi/2
       | veekV.xd ==  1  && veekV.yd ==  1  -> (pi*3)/4
       | veekV.xd ==  1  && veekV.yd == 0-1 -> pi/4
       | veekV.xd ==  0  && veekV.yd ==  1  -> pi
       | veekV.xd ==  0  && veekV.yd == 0-1 -> 0
       | veekV.xd == 0-1 && veekV.yd ==  0  -> (pi*3)/2
       | veekV.xd == 0-1 && veekV.yd ==  1  -> (pi*5)/4
-      | veekV.xd == 0-1 && veekV.yd == 0-1 -> (pi*7)/4
+      | veekV.xd == 0-1 && veekV.yd == 0-1 -> (pi*7)/4)+pi
 
   veekForm veekV
    = rotate (veekAngle veekV)
@@ -379,10 +379,10 @@ veekGame inits =
      ,text <| toText task.q
      ,flow right <| map (\la->if any (\le->le == la) eatenParticles then plainText la else plainText "_ ") task.a ]]]
 
-  gameViewSize : Signal (Int,Int)
+  --gameViewSize : Signal (Int,Int)
   gameViewSize = (\(w,h)->(w,min (h-{-heightOf infoView-} 250) 350)) <~ Window.dimensions -- I'd like to rely on the hight of info view, but cannot figure out how to do so without creating cyclicity in the graph.
 
-  lineOfSightS : Signal Int
+  --lineOfSightS : Signal Int
   lineOfSightS = (\(w,h)->(min w h) `div` 2) <~ gameViewSize
 
   cavernWallsS = cavernWalls <~ veek ~ lineOfSightS
