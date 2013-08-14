@@ -27,7 +27,7 @@ main = flow down [Nav.nav,
 **Synchronic study** focuses on a given state(usually the present state), of language: It's grammar, lexicon, phonetics.
 
 
-### [The Prague Linguistic Circle](www.newworldencyclopedia.org/entry/Prague_Linguistic_Circle)
+### [The Prague Linguistic Circle](http://www.newworldencyclopedia.org/entry/Prague_Linguistic_Circle)
 
 Prominent members:
 
