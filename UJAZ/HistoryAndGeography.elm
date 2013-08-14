@@ -12,12 +12,12 @@ tasks' =
   ,a=ls "doublets"}
  ,{q="The Old English period ends around the year"
   ,a=ls "1066"}
- ,{q="The Middle English period stars around the year"
+ ,{q="The Middle English period starts around the year"
   ,a=ls "1200"}
  ,{q="The Middle English period ends around the year"
   ,a=ls "1500"}
  ,{q="The transition from Early Modern English to Modern English is usually placed around the year"
-  ,a="1800"}
+  ,a=ls "1800"}
  ]
 
 (redirect,game) = Veek.veekGame

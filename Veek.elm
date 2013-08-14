@@ -204,7 +204,7 @@ veekGame inits =
   frames = pausable 0 <| fps framerate
 
   speedingEveryFrame : Signal {x:Float,y:Float}
-  speedingEveryFrame = sampleOn frames veekSpeed
+  speedingEveryFrame = (\_ a->a)<~ frames ~ veekSpeed
 
   updatePos speed oldPos =
    let
@@ -344,7 +344,7 @@ veekGame inits =
     (particles,_,eaten) = foldl updateParticles ([],False,[]) accParticles
    in
    case accParticles of
-    []   -> {particles=newParticle [],eaten=[]}
+    []   -> {particles=newParticle [],eaten=eaten}
     _    -> {particles=particles,eaten=eaten}
 
   drawParticle veekV particle = move (particle.xp-veekV.xp,particle.yp-veekV.yp) <| toForm <| plainText particle.letter
@@ -373,12 +373,11 @@ veekGame inits =
      ,flow right
       [flow down <|
        (if | taskId > 0 -> (\c->
-                         [flow down <| [plainText "Previous question: ",text <| toText (tasks !! (taskId - 1)).q,flow right <| (map plainText (tasks !! (taskId - 1)).a)]] ++ c )
+                         [plainText "Previous question: ",text <| toText (tasks !! (taskId - 1)).q,flow right <| (map plainText (tasks !! (taskId - 1)).a)] ++ c )
            | otherwise -> id)
-     [flow down <| [
-      plainText "Current question: "
+     [plainText "Current question: "
      ,text <| toText task.q
-     ,flow right <| map (\la->if any (\le->le == la) eatenParticles then plainText la else plainText "_ ") task.a ]]]]
+     ,flow right <| map (\la->if any (\le->le == la) eatenParticles then plainText la else plainText "_ ") task.a ]]]
 
   gameViewSize : Signal (Int,Int)
   gameViewSize = (\(w,h)->(w,min (h-{-heightOf infoView-} 250) 350)) <~ Window.dimensions -- I'd like to rely on the hight of info view, but cannot figure out how to do so without creating cyclicity in the graph.
@@ -410,7 +409,7 @@ veekGame inits =
     attempts = countAttempts eat.eaten task
    in
    if | all (\l->any (\e->e==l) eaten) task.a -> {eaten=[],taskId=eat.taskId+1,attempts=attemptsPerQuestion,lives=eat.lives}
-      | attempts == 0 -> {eaten=[],taskId=eat.taskId+1,attempts=attemptsPerQuestion,lives=eat.lives-1}
+      | attempts == 0 -> {eaten=[],taskId=if eat.taskId == 0 then 0 else eat.taskId-1,attempts=attemptsPerQuestion,lives=eat.lives-1}
       | otherwise -> {eaten=eaten,taskId=eat.taskId,attempts=attempts,lives=eat.lives}
 
   eatenParticlesAttemptsLivesAndTaskS = foldp compileEaten {eaten=[],taskId=0,attempts=attemptsPerQuestion,lives=startingLives} particlesWithChangesS
