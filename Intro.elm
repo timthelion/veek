@@ -88,7 +88,9 @@ levelLinks = [markdown|
 
 ### Written language
 
-[Writing systems](Writing/BasicTermsIntro.html)
+[Basic terminology](Writing/BasicTermsIntro.html)
+
+[Historic and present day writing sysems](Writing/WritingSystemsIntro.html)
 
 ### Sounds - Phonetics and Phonology
 
@@ -141,6 +143,8 @@ This information on Phonetics and Phonology is taken in part from the Longman Pr
 ### Words and how they change in different places - Morphology
 
 [Basic terms](Morphology/BasicTermsIntro.html)
+
+
 
 ### Strings of words - Syntax
 

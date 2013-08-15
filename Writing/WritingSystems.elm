@@ -1,4 +1,4 @@
-module UJAZ.WritingSystems where
+module Writing.WritingSystems where
 
 import Veek
 import JavaScript as JS
@@ -6,23 +6,18 @@ import JavaScript as JS
 ls = Veek.letters
 
 tasks' =
- [{q="The basic contrastive unit in writting is the _____."
-  ,a=ls "grapheme"}
- ,{q="Variations of graphemes are called ______."
-  ,a=ls "allographs"}
- ,{q="The actual marks on paper which represent graphemes are called ______."
-  ,a=ls "graphs"}
- ,{q="If a writing system consists of pictures which represent real objects then it is ______."
+ [{q="If a writing system consists of pictures which represent real objects then it is"
   ,a=ls "pictographic"}
- ,{q="If a writing system uses pictures to represent things that may or may not be the real objects drawn in the pictures then it is ____."
+ ,{q="If a writing system uses pictures to represent things that may or may not be the real objects drawn in the pictures then it is"
   ,a=ls "ideographic"}
- ,{q="If a writing system uses symbols to represent groups of sounds then it is ____."
+ ,{q="If a writing system uses symbols to represent groups of sounds then it is"
   ,a=ls "syllabic"}
- ]
+ ,{q="If a writing system uses symbols to represent sounds then it is"
+  ,a=ls "alphabetic"}]
 
 (redirect,game) = Veek.veekGame
  {alphabet = Veek.makeAlphabet tasks'
- ,nextLevel = "PhoneticTermsIntro.html"
+ ,nextLevel = "../Phonetics/BasicTermsIntro.html"
  ,home = "../Intro.html"
  ,tasks = tasks'}
 
