@@ -6,7 +6,7 @@ import JavaScript as JS
 ls = Veek.letters
 
 tasks' =
- [{q="If a writing system consists of pictures which represent real objects then it is"
+ [{q="If a writing system consists of images which represent real objects then it is"
   ,a=ls "pictographic"}
  ,{q="If a writing system uses pictures to represent things that may or may not be the real objects drawn in the pictures then it is"
   ,a=ls "ideographic"}

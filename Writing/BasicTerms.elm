@@ -6,7 +6,7 @@ import JavaScript as JS
 ls = Veek.letters
 
 tasks' =
- [{q="The basic contrastive unit in writting is the"
+ [{q="The basic contrastive unit in writing is the"
   ,a=ls "grapheme"}
  ,{q="Variations of graphemes are called"
   ,a=ls "allographs"}
