@@ -55,7 +55,7 @@ usage = [markdown|
 
 Welcome to Veek!  Veek! is an educational game made to prepare you for the Charles University KAJL Bachelors Comprehensive Exams.
 
-Veek is a robot designed by the grand Über-European Educational Comittee for Progress Development Social Perfection Equality Democracy and Agricultural Fairness(ÜEECPDSPEDAF for short).  Veek's mission is to retreive particles of knowlege from the endless caverns of doom.
+Veek is a robot designed by the grand Über-European Educational Committee for Progress Development Social Perfection Equality Democracy and Agricultural Fairness(ÜEECPDSPEDAF for short).  Veek's mission is to retrieve particles of knowledge from the endless caverns of doom.
 
 Every level you will take a journey with Veek through the cavern of doom.  You will be presented with a set of questions and you'll have to collect particles in order to answer them.
 
@@ -94,7 +94,10 @@ levelLinks = [markdown|
 
 ### Sounds - Phonetics and Phonology
 
-Other resources: [Kevin Russell´s resources on phonetics](http://home.cc.umanitoba.ca/~krussll/phonetics/index.html)
+Other resources:
+
+ - [Kevin Russell´s resources on phonetics](http://home.cc.umanitoba.ca/~krussll/phonetics/index.html)
+ - [This site](http://www.uiowa.edu/~acadtech/phonetics/english/frameset.html)
 
 Note: This unit focuses on US English not on RP!
 
@@ -142,9 +145,33 @@ This information on Phonetics and Phonology is taken in part from the Longman Pr
 
 ### Words and how they change in different places - Morphology
 
-[Basic terms](Morphology/BasicTermsIntro.html)
+['The' and 'a': Articles](Morphology/ArticlesIntro.html)
 
+[People, places, things, abstract concepts: nouns](Morphology/NounsIntro.html)
 
+[Noun cases](Morphology/GenetiveNounsIntro.html)
+
+[His, her, its: Pronouns](Morphology/PronounsIntro.html)
+
+[Warm, purple, and fluffy: Adjectives](Morphology/AdjectivesIntro.html)
+
+[Quickly, quietly, and queerly: Adverbs](Morphology/AdverbsIntro.html)
+
+[Eat, sleep, and poop: Verbs](Morphology/VerbsIntro.html)
+
+[Ate, slept, and pooped: Tense](Morphology/TenseIntro.html)
+
+[Progressive perfection: Aspect](Morphology/AspectIntro.html)
+
+[Mood](Morphology/MoodIntro.html)
+
+[Voice](Morphology/VoiceIntro.html)
+
+[Infinitive, Gerund, Participle](Morphology/InfinitiveGerundParticipleIntro.html)
+
+[Prepositions](Morphology/PrepositionsIntro.html)
+
+[Conjunctions](Morphology/ConjunctionsIntro.html)
 
 ### Strings of words - Syntax
 
