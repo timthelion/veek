@@ -13,14 +13,23 @@ GPL 3.0 - Timothy Hobbs <timothyhobbs@seznam.cz>
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module Morphology.AdIntro where
+module Morphology.VerbsIntro where
 import Nav
 main = flow down [Nav.nav,
  [markdown|
 
+## Verbs
 
-## [See adverbials from syntax](../Syntax/AdverbialsIntro.html)
+<img src="../images/verb.png" width="90%"/>
 
-[Next level](VerbsIntro.html)
+#### Dynamic vs Stative verbs
+
+<img src="../images/dynsatverbs.png"/>
+
+#### [Telic and Atelic verbs](http://en.wikipedia.org/wiki/Telicity)
+
+<img src="../images/telicity.png" width="90%"/>
+
+[On to next lesson](TenseIntro.html)
 
 |]]

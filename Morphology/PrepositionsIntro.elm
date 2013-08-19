@@ -13,14 +13,25 @@ GPL 3.0 - Timothy Hobbs <timothyhobbs@seznam.cz>
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module Morphology.AdIntro where
+module Morphology.PrepositionsIntro where
 import Nav
 main = flow down [Nav.nav,
  [markdown|
 
+## Prepositions
 
-## [See adverbials from syntax](../Syntax/AdverbialsIntro.html)
+Prepositions are words like at, for, in, on which proceed prepositional phrases.
 
-[Next level](VerbsIntro.html)
+#### Deferred prepositions
+
+I have called _for_ a taxi.
+
+A taxi has been called _for_.
+
+#### Prepositional meanings
+
+<img src="../images/prepositions.html" width="90%"/>
+
+[Play level](Prepositions.html)
 
 |]]

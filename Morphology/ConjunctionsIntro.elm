@@ -13,14 +13,29 @@ GPL 3.0 - Timothy Hobbs <timothyhobbs@seznam.cz>
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module Morphology.AdIntro where
+module Morphology.ConjunctionsIntro where
 import Nav
 main = flow down [Nav.nav,
  [markdown|
 
+## Conjunctions
 
-## [See adverbials from syntax](../Syntax/AdverbialsIntro.html)
+### Coordinators
 
-[Next level](VerbsIntro.html)
+Cats **and** dogs **or** dogs **and** cats **but** no one speeks of cats **and** frogs.
+
+### Correlatives
+
+**Either** you're with us **or** you're against us.
+
+You can't be **both** with us **and** against us.
+
+I'm **neither** with you **nor** against you, I'm simply a peice loving hippy high on pot!
+
+### Subordinators
+
+**After** he left he realised that **although** he had taken his keys, **as** he locked the door they had fallen **because** he was so careless.  **Before** he could get them, he found that he needed them *for* the door was locked.
+
+[Play level](ConjunctionsIntro.html)
 
 |]]

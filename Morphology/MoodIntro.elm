@@ -13,14 +13,29 @@ GPL 3.0 - Timothy Hobbs <timothyhobbs@seznam.cz>
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module Morphology.AdIntro where
+module Morphology.MoodIntro where
 import Nav
 main = flow down [Nav.nav,
  [markdown|
 
+## Mood
 
-## [See adverbials from syntax](../Syntax/AdverbialsIntro.html)
+### Indicative
 
-[Next level](VerbsIntro.html)
+The sky is blue.
+
+Is the sky blue?
+
+### Imperative
+
+Paint the sky blue!
+
+### Conditional
+
+Would you paint the sky blue?
+
+### [Subjunctive](http://www.grammar-monster.com/glossary/subjunctive_mood.htm)
+
+[Next lesson](VoiceIntro.html)
 
 |]]

@@ -19,9 +19,9 @@ main = flow down [Nav.nav,
  [markdown|
 
 
-  ## Adjectives
+## Adjectives
 
-  So I was walking down the street when I heard total(**Intens**ifying adjective) chaos errupting.  The only(**R**estrictive adjective) thing I could think of, was that a meteor had hit the earth.  I turned the corner, and saw an old(**A**ttributive only adjective) and rusty door.  Vibrating.  I felt afraid(**P**redicative only adjective).  I opened the door to see an intense rap battle going on.
+So I was walking down the street when I heard total(**Intens**ifying adjective) chaos errupting.  The only(**R**estrictive adjective) thing I could think of, was that a meteor had hit the earth.  I turned the corner, and saw an old(**A**ttributive only adjective) and rusty door.  Vibrating.  I felt afraid(**P**redicative only adjective).  I opened the door to see an intense rap battle going on.
 
   "Hey, when I was down in the hood I gone and saw some measly(**D**owntoner) kid buyin candy.  Was that you? Hu? Were you that kid?"
 
@@ -33,7 +33,7 @@ main = flow down [Nav.nav,
 
 <img src="../images/intenserap.png" alt="Two rappers rapping and a partridge in a pear tree." width="90%"/>
 
-  #### semantic classification of adjectives
+#### semantic classification of adjectives
 
   **S**tative/Dynamic
 

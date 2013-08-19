@@ -1,8 +1,26 @@
-main = [markdown|
+{-
+GPL 3.0 - Timothy Hobbs <timothyhobbs@seznam.cz>
 
-  ## Aspect
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, version 3 of the License.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-  ### The perfect present
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-}
+
+module Morphology.TenseIntro where
+import Nav
+main = flow down [Nav.nav,
+ [markdown|
+
+## Aspect
+
+### The perfect present
 
   Two friends, Bob and Fred, decide to host a surprise party for their third friend George's 23 birthday.  Their out at a bar discussing the plans over a beer or two.  We overhear:
 
@@ -21,4 +39,28 @@ main = [markdown|
 
   So here "she" is.  At least, that's the best I could do.  Of course, I suppose the **perfect** woman would at least have arms.  But who knows, maybe George likes cripples.
 
-|]
+#### The past perfect
+
+<img src="../images/hai.png" width="90%"/>
+
+Normal past perfect: He had eaten the sandwich before she could say "Wait, that's mine!"
+
+**H**ypothetical past perfect: If she had just grabbed it from him, rather than grasping for words, she might not have gone hungry that night.
+
+**A**ttitudinal past perfect: She had thought he would at least stop to take it out of the packaging.
+
+**I**ndirect speech, past perfect: He said he had not eaten for 3 days.
+
+#### Progressive aspect
+
+Event progressive: He is drinking his coffee.
+
+Habitual progressive: He is getting very fat.
+
+#### Perfect progressive
+
+He has been getting fatter and fatter for years now.
+
+[Play level](Aspect.html)
+
+|]]

@@ -13,14 +13,25 @@ GPL 3.0 - Timothy Hobbs <timothyhobbs@seznam.cz>
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module Morphology.AdIntro where
+module Morphology.TenseIntro where
 import Nav
 main = flow down [Nav.nav,
  [markdown|
 
+## Verb tense
 
-## [See adverbials from syntax](../Syntax/AdverbialsIntro.html)
+#### Simple Present Tense
 
-[Next level](VerbsIntro.html)
+<img src="../images/ship.png" width="90%"/>
+
+The ship is very large(**S**ate present). It sails the sea far and wide(**H**abitual present). And sinks suddenly(**I**nstantaneous present). And just as it's keel broke the surface, a giant bubble comes up and makes this hideous shreak(simple present tense for **P*ast)!
+
+#### Simple Past Tense
+
+<img src="../images/sheep.png" width="90%"/>
+
+The sheep was tired(**S**tate past) as the sheep was tired every evening(**H**abitual past). The sheep walked to the barn(**E**vent **P**ast).
+
+[Play level](Tense.html)
 
 |]]

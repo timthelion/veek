@@ -13,14 +13,21 @@ GPL 3.0 - Timothy Hobbs <timothyhobbs@seznam.cz>
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module Morphology.AdIntro where
+module Morphology.VoiceIntro where
 import Nav
 main = flow down [Nav.nav,
  [markdown|
 
+## Voice
 
-## [See adverbials from syntax](../Syntax/AdverbialsIntro.html)
+### Active voice
 
-[Next level](VerbsIntro.html)
+The cat jumped on the mouse.
+
+### Passive voice
+
+The mouse was jumped on by the cat.
+
+[Next lesson](InfinitiveGerundParticipleIntro.html)
 
 |]]
