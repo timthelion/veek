@@ -23,6 +23,9 @@ main = flow down [Nav.nav,
 
 So I was walking down the street when I heard total(**Intens**ifying adjective) chaos errupting.  The only(**R**estrictive adjective) thing I could think of, was that a meteor had hit the earth.  I turned the corner, and saw an old(**A**ttributive only adjective) and rusty door.  Vibrating.  I felt afraid(**P**redicative only adjective).  I opened the door to see an intense rap battle going on.
 
+
+<img src="../images/intenserap.png" alt="Two rappers rapping and a partridge in a pear tree." width="90%"/>
+
   "Hey, when I was down in the hood I gone and saw some measly(**D**owntoner) kid buyin candy.  Was that you? Hu? Were you that kid?"
 
   "Hey, if you was a real(**E**mphasizer) man maybe you'da gone and found out. Hu? Were were you? Hu? Peepin from the oak tree?"
@@ -31,7 +34,7 @@ So I was walking down the street when I heard total(**Intens**ifying adjective) 
 
   I closed the door and turned away.  Hoping I'd get outta there before one of them rappers was DEAD.
 
-<img src="../images/intenserap.png" alt="Two rappers rapping and a partridge in a pear tree." width="90%"/>
+<img src="../images/dead.png" width="90%"/>
 
 #### semantic classification of adjectives
 

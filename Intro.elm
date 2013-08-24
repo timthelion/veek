@@ -139,9 +139,19 @@ This information on Phonetics and Phonology is taken in part from the Longman Pr
 
 [Basic terms](Lexicology/BasicTermsIntro.html)
 
+[Lexicography](Lexocology/LexicographyIntro.html)
+
 [Word formation processes](Lexicology/WordFormationIntro.html)
 
-[Relationships between words](Lexicology/RelationsIntro.html)
+[Changes en meaning over time](Lexicology/ChangesIntro.html)
+
+[Paradigmatic sense relations](Lexicology/RelationsIntro.html)
+
+[Meaning Transfer](Lexicology/TransferIntro.html)
+
+[Derivation: semantic classification of prefixes](Lexicology/SemanticClassificationOfPrefixesIntro.html)
+
+[Compound words: Semantic classification](Lexicology/SemanticClassificationOfCompoundsIntro.html)
 
 ### Words and how they change in different places - Morphology
 
