@@ -68,7 +68,8 @@ Navigation is simple, just use the arrow keys.
 Good luck!
 
 |]
-levelLinks = [markdown|
+
+levelLinks = flow down [[markdown|
 
 ## Levels
 
@@ -91,8 +92,9 @@ levelLinks = [markdown|
 [Basic terminology](Writing/BasicTermsIntro.html)
 
 [Historic and present day writing sysems](Writing/WritingSystemsIntro.html)
+|]
 
-### Sounds - Phonetics and Phonology
+{- ### Sounds - Phonetics and Phonology
 
 Other resources:
 
@@ -133,7 +135,9 @@ Note: This unit focuses on US English not on RP!
 
 [Intonation](Phonetics/IntonationIntro.html)
 
-This information on Phonetics and Phonology is taken in part from the Longman Pronunciation Dictionary, 3rd Edition by J.C.Wells, in part from Wikipedia/Wiktionary and in part from Mgr. Kristýna Poesová, Ph.D.'s note's.
+This information on Phonetics and Phonology is taken in part from the Longman Pronunciation Dictionary, 3rd Edition by J.C.Wells, in part from Wikipedia/Wiktionary and in part from Mgr. Kristýna Poesová, Ph.D.'s note's. -}
+
+ ,[markdown|
 
 ### Parts of words, origins of words - Lexicology
 
@@ -143,7 +147,7 @@ This information on Phonetics and Phonology is taken in part from the Longman Pr
 
 [Word formation processes](Lexicology/WordFormationIntro.html)
 
-[Changes en meaning over time](Lexicology/ChangesIntro.html)
+[Changes in meaning over time](Lexicology/ChangesIntro.html)
 
 [Paradigmatic sense relations](Lexicology/RelationsIntro.html)
 
@@ -159,7 +163,7 @@ This information on Phonetics and Phonology is taken in part from the Longman Pr
 
 [People, places, things, abstract concepts: nouns](Morphology/NounsIntro.html)
 
-[Noun cases](Morphology/GenetiveNounsIntro.html)
+[Noun cases](Morphology/GenitiveNounsIntro.html)
 
 [His, her, its: Pronouns](Morphology/PronounsIntro.html)
 
@@ -185,11 +189,75 @@ This information on Phonetics and Phonology is taken in part from the Longman Pr
 
 ### Strings of words - Syntax
 
-[Basic terms](Syntax/BasicTermsIntro.html)
+[Sentence Types](Syntax/SentenceTypesIntro.html)
 
-[Functional Sentence perspective](Syntax/FSPIntro.html)
+[Question Types](Syntax/QuestionTypesIntro.html)
 
-|]
+[Clause Structure](Syntax/ClauseStructureIntro.html)
+
+[Subjects](Syntax/SubjectsIntro.html)
+
+[Objects](Syntax/ObjectsIntro.html)
+
+[Adverbials](Syntax/AdverbialsIntro.html)
+
+[Appositions](Syntax/AppositionsIntro.html)
+
+[It](Syntax/ItIntro.html)
+
+[Predicate Types](Syntax/PredicateTypesIntro.html)
+
+[Word Order - FSP](Syntax/WordOrderIntro.html)
+
+[Clause Types](Syntax/ClauseTypesIntro.html)
+
+[Infinitive](Syntax/InfinitiveIntro.html)
+
+[The Gerund and the Participle](Syntax/GerundAndParticipleIntro.html)
+
+[Nominal Content Clauses](Syntax/NominalContentClausesIntro.html)
+
+[Relative Clauses](Syntax/RelativeClausesIntro.html)
+
+[Speech and Thought](Syntax/SpeechAndThoughtIntro.html)
+
+[Adverbial Clauses](Syntax/AdverbialClausesIntro.html)
+
+[Semantic categorization of compound sentences](Syntax/CompoundSentencesIntro.html)
+
+### American Literature
+
+[1. The Colonial and Early American Period](Amlit/ColonialIntro.html)
+
+[2. Romanticism I](Amlit/RomanticismIIntro.html)
+
+[3. Romanticism II: Trancendentalism](Amlit/RomanticismIIIntro.html)
+
+[4. Romanticism III: Transition period](Amlit/RomanticismIIIIntro.html)
+
+[5. Early American Realism/Naturalism](Amlit/RealismIntro.html)
+
+[6. AmericanPoetry of the 2nd half of the 19th centruy and the begining of the 20th century](Amlit/Poetry19th20thIntro.html)
+
+[7. Early 20th century Realist Fiction](Amlit/Realist20thIntro.html)
+
+[8. Modernism and the Lost Generation](Amlit/LostGenerationIntro.html)
+
+[9. American Fiction 1930s - 1950s](Amlit/Fiction30s50sIntro.html)
+
+[10. American Fiction 1960s - 1980s](Amlit/Fiction60s80sIntro.html)
+
+[11. Post-Modernism](Amlit/PostModernismIntro.html)
+
+[12. American Jewish Literature](Amlit/JewishLiteratureIntro.html)
+
+[13. American Poetry of the 20th century](Amlit/Poetry20thIntro.html)
+
+[14. Representative American Drama](Amlit/DramaIntro.html)
+
+[15. African American and Native American Literature](Amlit/AfricanAmericanIntro.html)
+
+|]]
 
 animateIntro f
  = flow down <| [veek f] ++

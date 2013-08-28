@@ -17,7 +17,8 @@ tasks' =
 
 (redirect,game) = Veek.veekGame
  {alphabet = Veek.makeAlphabet tasks'
- ,nextLevel = "../Phonetics/BasicTermsIntro.html"
+ --,nextLevel = "../Phonetics/BasicTermsIntro.html"
+ ,nextLevel = "../Lexicology/BasicTermsIntro.html"
  ,home = "../Intro.html"
  ,tasks = tasks'}
 
