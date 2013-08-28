@@ -23,4 +23,4 @@ main = flow down [Nav.nav,
 <img src="../images/adverbialclauses.png" width="100%"/>
 
 [Play level](AdverbialClauses.html)
-|]]
+|],Nav.footer]

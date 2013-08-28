@@ -48,4 +48,4 @@ So I was walking down the street when I heard total(**Intens**ifying adjective) 
 
 [Play level](Adjectives.html)
 
-|]]
+|],Nav.footer]

@@ -24,4 +24,4 @@ main = flow down [Nav.nav,
 
 [Play level](SemioticTriangle.html)
 
-|]]
+|],Nav.footer]

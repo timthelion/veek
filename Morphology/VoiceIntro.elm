@@ -30,4 +30,4 @@ The mouse was jumped on by the cat.
 
 [Next lesson](InfinitiveGerundParticipleIntro.html)
 
-|]]
+|],Nav.footer]

@@ -58,4 +58,4 @@ main = flow down [Nav.nav,
 <img src="../images/affectedio.png" width="100%"/>
 
 [Play level](Objects.html)
-|]]
+|],Nav.footer]

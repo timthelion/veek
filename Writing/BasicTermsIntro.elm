@@ -28,4 +28,4 @@ _Graph_: A specific instance of an allograph.
 
 [Play level](BasicTerms.html)
 
-|]]
+|],Nav.footer]

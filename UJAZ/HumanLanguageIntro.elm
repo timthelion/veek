@@ -76,4 +76,4 @@ Any stream of speech is made up of several layers of meaningful units: sentences
 
 [Play level](HumanLanguage.html)
 
-|]]
+|],Nav.footer]

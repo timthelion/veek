@@ -23,4 +23,4 @@ main = flow down [Nav.nav,
 <img src="../images/gerundparticiple.png" width="100%"/>
 
 [Play level](GerundAndParticiple.html)
-|]]
+|],Nav.footer]

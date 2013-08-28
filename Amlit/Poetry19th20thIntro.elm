@@ -34,4 +34,4 @@ main = flow down [Nav.nav,
 
 [Play level](Poetry19th20th.html)
 
-|]]
+|],Nav.footer]

@@ -34,4 +34,4 @@ The sheep was tired(**S**tate past) as the sheep was tired every evening(**H**ab
 
 [Play level](Tense.html)
 
-|]]
+|],Nav.footer]

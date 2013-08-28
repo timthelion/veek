@@ -42,4 +42,4 @@ main = flow down [Nav.nav,
 <img src="../images/sallymigraine.png" width="100%"/>
 
 [Play level](Subjects.html)
-|]]
+|],Nav.footer]

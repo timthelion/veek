@@ -42,4 +42,4 @@ _Chomsky_
 
 [Play level](Saussure.html)
 
- |]]
+ |],Nav.footer]

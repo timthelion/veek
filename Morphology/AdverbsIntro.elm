@@ -23,4 +23,4 @@ main = flow down [Nav.nav,
 
 [Next level](VerbsIntro.html)
 
-|]]
+|],Nav.footer]

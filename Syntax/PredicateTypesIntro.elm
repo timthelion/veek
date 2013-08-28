@@ -33,4 +33,4 @@ main = flow down [Nav.nav,
 <img src="../images/identifyingpredicate.png" width="100%"/>
 
 [Play level](PredicateTypes.html)
-|]]
+|],Nav.footer]

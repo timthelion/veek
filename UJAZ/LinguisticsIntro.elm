@@ -39,4 +39,4 @@ Roman Jakobson: 1896-1982 - Functionalism
 
 [Play level](Linguistics.html)
 
- |]]
+ |],Nav.footer]

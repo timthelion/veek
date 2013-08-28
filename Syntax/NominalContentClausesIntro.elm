@@ -45,4 +45,4 @@ main = flow down [Nav.nav,
 <img src="../images/imperativencc.png" width="100%"/>
 
 [Play level](NominalContentClauses.html)
-|]]
+|],Nav.footer]

@@ -50,4 +50,4 @@ main = flow down [Nav.nav,
 
 [Play level](SemanticClassificationOfPrefixes.html)
 
-|]]
+|],Nav.footer]

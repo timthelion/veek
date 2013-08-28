@@ -60,4 +60,4 @@ Centre - Periphery
 
 [Play level](Lexicography.html)
 
-|]]
+|],Nav.footer]

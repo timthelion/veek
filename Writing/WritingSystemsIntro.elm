@@ -48,4 +48,4 @@ Phonetic writing systems:
 
 [Play level](WritingSystems.html)
 
-|]]
+|],Nav.footer]

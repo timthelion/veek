@@ -67,4 +67,4 @@ main = flow down [Nav.nav,
 
 [Play level](Colonial.html)
 
-|]]
+|],Nav.footer]

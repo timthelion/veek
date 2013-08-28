@@ -54,4 +54,4 @@ main = flow down [Nav.nav,
 
 [Play level](AfricanAmerican.html)
 
-|]]
+|],Nav.footer]

@@ -38,4 +38,4 @@ _Seme_: A specific meaning of a sememe.
 
 [Play level](BasicTerms.html)
 
-|]]
+|],Nav.footer]

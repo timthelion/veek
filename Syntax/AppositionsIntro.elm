@@ -33,4 +33,4 @@ main = flow down [Nav.nav,
 <img src="../images/particularizationnra.png" width="100%"/>
 
 [Play level](Appositions.html)
-|]]
+|],Nav.footer]

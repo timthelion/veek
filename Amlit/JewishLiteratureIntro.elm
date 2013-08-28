@@ -39,4 +39,4 @@ main = flow down [Nav.nav,
 
 [Play level](JewishLiterature.html)
 
-|]]
+|],Nav.footer]

@@ -37,4 +37,4 @@ main = flow down [Nav.nav,
 <img src="../images/exclamation.png" width="100%"/>
 
 [Play level](SentenceTypes.html)
-|]]
+|],Nav.footer]

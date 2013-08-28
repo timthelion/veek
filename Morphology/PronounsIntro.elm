@@ -34,4 +34,4 @@ main = flow down [Nav.nav,
 
 [Play level](Pronouns.html)
 
-|]]
+|],Nav.footer]

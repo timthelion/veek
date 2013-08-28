@@ -46,4 +46,4 @@ main = flow down [Nav.nav,
 
 [Play level](Articles.html)
 
-|]]
+|],Nav.footer]

@@ -49,4 +49,4 @@ main = flow down [Nav.nav,
 <img src="../images/SVOA.png" width="100%"/>
 
 [Play level](ClauseStructure.html)
-|]]
+|],Nav.footer]

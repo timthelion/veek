@@ -32,4 +32,4 @@ main = flow down [Nav.nav,
 
 [On to next lesson](TenseIntro.html)
 
-|]]
+|],Nav.footer]

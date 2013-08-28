@@ -38,4 +38,4 @@ Synthetic languages are at the other extreme.  There are two types of synthetic 
 
 [Play level](IsolatingInflective.html)
 
-|]]
+|],Nav.footer]

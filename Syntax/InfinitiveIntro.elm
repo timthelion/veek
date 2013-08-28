@@ -23,4 +23,4 @@ main = flow down [Nav.nav,
 <img src="../images/infinitives.png" width="100%"/>
 
 [Play level](Infinitives.html)
-|]]
+|],Nav.footer]

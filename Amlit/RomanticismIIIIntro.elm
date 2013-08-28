@@ -30,4 +30,4 @@ main = flow down [Nav.nav,
 
 [Play level](RomanticismIII.html)
 
-|]]
+|],Nav.footer]

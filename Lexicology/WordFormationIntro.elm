@@ -28,4 +28,4 @@ main = flow down [Nav.nav,
 
 [Play level](WordFormation.html)
 
-|]]
+|],Nav.footer]

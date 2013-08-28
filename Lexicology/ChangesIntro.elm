@@ -38,4 +38,4 @@ main = flow down [Nav.nav,
 
 [Play level](Changes.html)
 
-|]]
+|],Nav.footer]

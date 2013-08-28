@@ -43,4 +43,4 @@ main = flow down [Nav.nav,
 <img src="../images/fsp.png" width="100%"/>
 
 [Play level](WordOrder.html)
-|]]
+|],Nav.footer]

@@ -23,4 +23,4 @@ main = flow down [Nav.nav,
 <img src="../images/quotes.png" width="100%"/>
 
 [Play level](SpeechAndThought.html)
-|]]
+|],Nav.footer]

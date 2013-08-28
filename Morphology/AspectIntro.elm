@@ -63,4 +63,4 @@ He has been getting fatter and fatter for years now.
 
 [Play level](Aspect.html)
 
-|]]
+|],Nav.footer]

@@ -23,4 +23,4 @@ main = flow down [Nav.nav,
 <img src="../images/questions.png" width="100%"/>
 
 [Play level](QuestionTypes.html)
-|]]
+|],Nav.footer]

@@ -41,4 +41,4 @@ main = flow down [Nav.nav,
 <img src="../images/anaphoricit.png" width="100%"/>
 
 [Play level](It.html)
-|]]
+|],Nav.footer]

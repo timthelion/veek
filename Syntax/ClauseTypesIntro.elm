@@ -23,4 +23,4 @@ main = flow down [Nav.nav,
 <img src="../images/clausetypes.png" width="100%"/>
 
 [Next level](InfinitiveIntro.html)
-|]]
+|],Nav.footer]

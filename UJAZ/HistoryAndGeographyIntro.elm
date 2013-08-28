@@ -99,4 +99,4 @@ Standardization of English spelling with the invention of the printing press.
 
 [Play level](HistoryAndGeography.html)
 
- |]]
+ |],Nav.footer]

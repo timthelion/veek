@@ -26,5 +26,5 @@ Functions of intonation
  - Grammatical
  - Discourse
 
- |]
+ |],Nav.footer]
 

@@ -38,4 +38,4 @@ Would you paint the sky blue?
 
 [Next lesson](VoiceIntro.html)
 
-|]]
+|],Nav.footer]

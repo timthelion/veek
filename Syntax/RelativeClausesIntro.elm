@@ -29,4 +29,4 @@ main = flow down [Nav.nav,
 <img src="../images/adnominalrelativeclause.png" width="100%"/>
 
 [Play level](RelativeClauses.html)
-|]]
+|],Nav.footer]

@@ -38,4 +38,4 @@ main = flow down [Nav.nav,
 
 [Play level](Fiction60s80s.html)
 
-|]]
+|],Nav.footer]
