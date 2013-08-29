@@ -143,7 +143,7 @@ This information on Phonetics and Phonology is taken in part from the Longman Pr
 
 [Basic terms](Lexicology/BasicTermsIntro.html)
 
-[Lexicography](Lexocology/LexicographyIntro.html)
+[Lexicography](Lexicology/LexicographyIntro.html)
 
 [Word formation processes](Lexicology/WordFormationIntro.html)
 

@@ -6,10 +6,10 @@ import JavaScript as JS
 ls = Veek.letters
 
 tasks' =
- [{q="Who wrote ?(No spaces or capitals)"
-  ,a=ls ""}
- ,{q="Who wrote ?(No spaces or capitals)"
-  ,a=ls ""}]
+ [{q="Who wrote Moby-Dick?(No spaces or capitals)"
+  ,a=ls "hermanmelville"}
+ ,{q="Who wrote The adventures of Hucklebery Finn?(No spaces or capitals)"
+  ,a=ls "marktwain"}]
 
 (redirect,game) = Veek.veekGame
  {alphabet = Veek.makeAlphabet tasks'

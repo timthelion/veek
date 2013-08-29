@@ -1,4 +1,4 @@
-module Morphology.InfinitiveParticipleGerund where
+module Morphology.InfinitiveGerundParticiple where
 
 import Veek
 import JavaScript as JS

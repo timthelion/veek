@@ -15,9 +15,9 @@
 module Victory where
 import Nav
 
-main = flow down [Nav.nav,[markdown|
+main = flow down [[markdown|
 
-#/vɪktɹi ɪz jɔz/
+#/vɪktɹi ɪz jɔɹz/
 
 Congradulations, you have completed all levels of Veek!
 

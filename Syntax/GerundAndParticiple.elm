@@ -20,7 +20,7 @@ tasks' =
   ,a=ls "dangling"}
  ,{q="What is going on here: Fred ate like a maniac, the twisty rolls disappearing like dissidents.(____ participle)"
   ,a=ls "absolute"}
- ,{q="What is going on here: Fred eating all the cake in one sitting was a horrifying sight.(_____ fused)"
+ ,{q="What is going on here: Fred eating all the cake in one sitting was a horrifying sight.(_____ participle)"
   ,a=ls "fused"}]
 
 (redirect,game) = Veek.veekGame

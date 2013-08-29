@@ -13,7 +13,7 @@ GPL 3.0 - Timothy Hobbs <timothyhobbs@seznam.cz>
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module Morphology.InfinitiveParticipleGerundIntro where
+module Morphology.InfinitiveGerundParticipleIntro where
 import Nav
 main = flow down [Nav.nav,
  flow right [
@@ -22,30 +22,41 @@ main = flow down [Nav.nav,
 ## Infinitive
 
 to eat
+
 to be eating
+
 to have eaten
+
 to have been eating
 
  |]
-
+ , plainText "   "
  ,[markdown|
 
 ## Participle
 
 eating
+
 having eaten
+
 being eaten
+
 having been eaten
+
 eaten
 
 |]
+ , plainText "   "
  ,[markdown|
 
 ## Gerund
 
 eating
+
 having eaten
+
 being eaten
+
 having been eaten
 
 |]]
@@ -72,5 +83,7 @@ Noun like uses of `-ing` form.
 Attributive and adverbial uses of the `-ing` form.
 
 [Play level](InfinitiveGerundParticiple.html)
+
+ᗧ · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
 
 |],Nav.footer]
