@@ -30,7 +30,50 @@ main = flow down [Nav.nav,
 
 <img src="../images/telicity.png" width="90%"/>
 
-[On to next lesson](TenseIntro.html)
+#### Modality
+
+ * Intrinsic modality(Disposition): This is whether the agent needs to/wants to do something.
+  * Permission
+  * Necessity
+  * Obligation
+  * Volition
+  * Ability/Disposition
+ * Extrinsic modality(Probability): This is whether the agent actually will do it.
+  * Possibility
+  * Probability
+  * Necessity(logical)
+  * Prediction
+
+#### Modal verbs
+
+ * Can
+  * Ability: She can program.
+  * Permission: You can't copy library books.
+  * Possibility: Fred can get angry sometimes.
+ * May/Might
+  * Permission: You may have another piece of cake.
+  * Possibility: It might rain today.
+ * Must
+  * Obligation: You must finish your peas.
+  * Necessity: I can hear that tap tap on the roof, it must be raining.
+ * Will/Would
+  * Volition
+   * Intention: I will go out and have lunch soon.
+   * Willingness: I will help you.
+  * Prediction: It will rain.
+ * Shall/Should
+  * Prediction: If he keeps up at that pace, Henry should win the race.
+  * Volition: Shall I help you with those flowers?
+  * Obligation: You should help me with these flowers.
+  * Tentative inference: It shouldn't be too difficult.
+ * Ought to
+  * Tentative inference: The train ought to be coming around the corner any minute now.
+  * Obligation: You ought to be more polite.
+ * Need
+ * Dare
+ * Used to
+
+[Play level](Verbs.html)
 
 ᗧ · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
 
