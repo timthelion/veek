@@ -286,6 +286,7 @@ Quickly, quietly, and queerly: Adverbs
 Eat, sleep, and poop: Verbs
 
  - [Read lesson](Morphology/VerbsIntro.html)
+ - [Play level](Morphology/Verbs.html)
 
 Ate, slept, and pooped: Tense
 
@@ -425,7 +426,6 @@ Semantic categorization of compound sentences
 3. The importance of theatre to the Elizabethan sensibility
 
  - [Read lesson](http://britlitbernie2012.wikia.com/wiki/The_importance_of_theatre_to_the_Elizabethan_sensibility)
- - [Play level](BritLit/ElizabethanSensibility.html)
 
 4. Shakespeare's plays in the context of the late Renaissance (the Elizabethan period) and from the point of view of modern sensibility
 
@@ -504,12 +504,10 @@ Semantic categorization of compound sentences
 20. Discuss the 20th century British writers who focus on moral concerns(Joseph Conrad, Graham Greene, William Golding, Anthony Burgess, Iris Murdoch)
 
  - [Read lesson](http://britlitbernie2012.wikia.com/wiki/Discuss_the_20th_century_British_writers_who_fucus_on_moral_concers(Joseph_Conrad,_Graham_Greene,_William_Golding,_Anthony_Burgess,_Iris_Murdoch))
- - [Play level](BritLit/MoralConcerns.html)
 
 21. Theatre of the absurd, with reference to Waiting for Godot
 
  - [Read lesson](http://britlitbernie2012.wikia.com/wiki/Theatre_of_the_absurd,_with_reference_to_Waiting_for_Godot)
- - [Play level](BritLit/TheatreOfAbsurd.html)
 
 22. Movements in post WWII British poetry
 
